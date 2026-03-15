@@ -136,7 +136,7 @@ export default function Home() {
       <div id="cursor" className="cursor" />
       <div id="cursorRing" className="cursor-ring" />
 
-      <main>
+      <main id="top">
         <section id="hero">
           <div className="hero-inner">
             <div className="hero-label">

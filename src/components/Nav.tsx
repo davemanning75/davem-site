@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Nav() {
   return (
     <nav>
-      <a className="nav-logo" href="https://www.davem.ca" target="_blank" rel="noreferrer">
+      <a className="nav-logo" href="#top">
         DM / davem.ca
       </a>
       <ul className="nav-links">
