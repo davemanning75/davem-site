@@ -1,0 +1,24 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#040f1e" />
+      <stop offset="100%" stop-color="#00182f" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="60" y="180" font-family="Syne, system-ui, sans-serif" font-size="72" font-weight="800" fill="#00b8ff">
+    Dave Manning
+  </text>
+  <text x="60" y="270" font-family="Instrument Sans, system-ui, sans-serif" font-size="44" fill="#f0f6ff">
+    Agentic AI Leader
+  </text>
+  <text x="60" y="340" font-family="Instrument Sans, system-ui, sans-serif" font-size="28" fill="#b8eaff" opacity="0.8">
+    Autonomous systems · Generative AI · Production delivery
+  </text>
+  <g transform="translate(60, 440)">
+    <rect width="320" height="60" rx="12" fill="rgba(0,184,255,0.15)" />
+    <text x="24" y="40" font-family="Instrument Sans, system-ui, sans-serif" font-size="24" fill="#00b8ff">
+      davemanning.ca
+    </text>
+  </g>
+</svg>
