@@ -42,3 +42,5 @@ next-env.d.ts
 
 # local scaffolding backups
 backup-before-next/
+
+.vercel
