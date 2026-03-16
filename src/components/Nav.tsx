@@ -17,16 +17,10 @@ export default function Nav() {
           <a href="#work">Work</a>
         </li>
         <li>
-          <a href="#contact">Contact</a>
+          <a href="#career">Career</a>
         </li>
         <li>
-          <a
-            href="https://www.linkedin.com/in/davemanninggta/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            LinkedIn ↗
-          </a>
+          <a href="#contact">Contact</a>
         </li>
       </ul>
     </nav>

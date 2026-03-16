@@ -707,6 +707,39 @@ h2.section-title {
   color: var(--blue-electric);
   flex-shrink: 0;
 }
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 420px;
+}
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--white-dim);
+  gap: 0.5rem;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: var(--white);
+  font-family: var(--body);
+  font-size: 0.95rem;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--blue-electric);
+  box-shadow: 0 0 0 2px rgba(0, 184, 255, 0.25);
+}
+.contact-form button {
+  align-self: flex-start;
+}
+
 .contact-right {}
 .experience-timeline {
   position: relative;

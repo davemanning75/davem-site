@@ -144,7 +144,7 @@ export default function Home() {
             </div>
             <h1 className="hero-name">
               Dave <br />
-              <span className="line2">Manning.</span>
+              <span className="line2">Manning</span>
             </h1>
             <p className="hero-tagline">
               Building the frameworks that move enterprises from <strong>AI
@@ -347,6 +347,48 @@ export default function Home() {
 
         <WorkGrid />
 
+        <section id="career">
+          <div className="career-inner">
+            <div className="career-header reveal">
+              <p className="section-label">Career</p>
+              <h2 className="section-title">Career Timeline</h2>
+            </div>
+            <div className="experience-timeline">
+              <div className="timeline-item">
+                <div className="timeline-year">2021 — Present</div>
+                <div className="timeline-role">Director of Architecture</div>
+                <div className="timeline-company">Centrilogic / WatServ</div>
+              </div>
+              <div className="timeline-item">
+                <div className="timeline-year">2015 — 2021</div>
+                <div className="timeline-role">
+                  Director, Consulting — Enterprise Archtecture, Tech Strategy & Innovation
+                </div>
+                <div className="timeline-company">CGI Inc.</div>
+              </div>
+              <div className="timeline-item">
+                <div className="timeline-year">2008 — 2015</div>
+                <div className="timeline-role">Senior IT Architect</div>
+                <div className="timeline-company">
+                  IBM Canada — Custom Hosting Services
+                </div>
+              </div>
+              <div className="timeline-item">
+                <div className="timeline-year">2002 — 2008</div>
+                <div className="timeline-role">Technical Lead & Senior Architect</div>
+                <div className="timeline-company">
+                  IBM Canada
+                </div>
+              </div>
+              <div className="timeline-item">
+                <div className="timeline-year">Earlier</div>
+                <div className="timeline-role">Project Leader / Intranet Architect</div>
+                <div className="timeline-company">Kraft Canada · IBM Canada</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="contact">
           <div className="contact-inner">
             <div className="contact-left reveal">
@@ -359,25 +401,39 @@ export default function Home() {
                 first production agent, or looking for strategic leadership — I'd
                 like to connect.
               </p>
-              <div className="contact-links">
-                <a
-                  href="https://www.linkedin.com/in/davemanninggta/"
-                  className="contact-link"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                  </svg>
-                  linkedin.com/in/davemanninggta
-                </a>
-                <a href="https://www.davem.ca" className="contact-link">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
+              <form
+                className="contact-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+                  const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+                  const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
+                  const subject = encodeURIComponent("email from davem.ca");
+                  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+                  window.location.href = `mailto:davemanning75@gmail.com?subject=${subject}&body=${body}`;
+                }}
+              >
+                <label>
+                  Name
+                  <input name="name" type="text" required />
+                </label>
+                <label>
+                  Email
+                  <input name="email" type="email" required />
+                </label>
+                <label>
+                  Message
+                  <textarea name="message" rows={4} required />
+                </label>
+                <button type="submit" className="btn-primary">
+                  Send Email
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
                     <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
