@@ -1,26 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import WorkGrid from "@/components/WorkGrid";
 
 export default function Home() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [error, setError] = useState<string | null>(null);
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  const thankYouMessage = useMemo(() => {
-    if (status !== "sent") return null;
-    return (
-      <div className="contact-thankyou">
-        <strong>Thanks!</strong> Your message has been queued. I’ll follow up soon.
-      </div>
-    );
-  }, [status]);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus("idle");
-    setError(null);
     setValidationError(null);
 
     const form = event.currentTarget;
@@ -32,7 +21,6 @@ export default function Home() {
     const honeypot = String(formData.get("hp") ?? "").trim();
 
     if (honeypot) {
-      // Likely a bot
       setValidationError("Spam detected.");
       return;
     }
@@ -55,24 +43,9 @@ export default function Home() {
 
     setStatus("sending");
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, hp: honeypot }),
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error ?? "Unable to send message");
-      }
-
-      setStatus("sent");
-      form.reset();
-    } catch (err) {
-      setStatus("error");
-      setError((err as Error).message);
-    }
+    const subject = encodeURIComponent("email from davem.ca");
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    window.location.href = `mailto:davemanning75@gmail.com?subject=${subject}&body=${body}`;
   };
 
   useEffect(() => {
@@ -485,7 +458,6 @@ export default function Home() {
                 linkedin.com/in/davemanninggta
               </a>
 
-              {thankYouMessage}
               {validationError && (
                 <div className="contact-error">
                   {validationError}
@@ -493,7 +465,7 @@ export default function Home() {
               )}
               {status === "error" && (
                 <div className="contact-error">
-                  Sorry — something went wrong. Please try again or email directly.
+                  Sorry — something went wrong. Please try again.
                 </div>
               )}
 
