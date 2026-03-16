@@ -262,7 +262,7 @@ export default function Home() {
                 Let’s talk
               </a>
             </div>
-            <div className="about-box reveal">
+            <div className="about-box reveal p-8 text-lg leading-relaxed">
               <h3>Latest Work</h3>
               <p>
                 Currently leading architecture and design on a large-scale agentic
@@ -489,15 +489,30 @@ export default function Home() {
                 <input type="text" name="hp" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
                 <label>
                   Name
-                  <input name="name" type="text" required />
+                  <input
+                    name="name"
+                    type="text"
+                    required
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </label>
                 <label>
                   Email
-                  <input name="email" type="email" required />
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </label>
                 <label>
                   Message
-                  <textarea name="message" rows={4} required />
+                  <textarea
+                    name="message"
+                    rows={4}
+                    required
+                    className="mt-1 w-full resize-none rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </label>
                 <button type="submit" className="btn-primary" disabled={status === "sending"}>
                   {status === "sending" ? (
