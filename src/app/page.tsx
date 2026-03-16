@@ -434,53 +434,6 @@ export default function Home() {
           </div>
         </section>
 
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                  </svg>
-                  www.davem.ca
-                </a>
-              </div>
-            </div>
-            <div className="contact-right reveal" style={{ transitionDelay: "0.15s" }}>
-              <p className="section-label">Career Timeline</p>
-              <div className="experience-timeline">
-                <div className="timeline-item">
-                  <div className="timeline-year">2021 — Present</div>
-                  <div className="timeline-role">Director of Architecture</div>
-                  <div className="timeline-company">Centrilogic / WatServ</div>
-                </div>
-                <div className="timeline-item">
-                  <div className="timeline-year">2015 — 2021</div>
-                  <div className="timeline-role">
-                    Director, Consulting — Enterprise Archtecture, Tech Strategy & Innovation
-                  </div>
-                  <div className="timeline-company">CGI Inc.</div>
-                </div>
-                <div className="timeline-item">
-                  <div className="timeline-year">2008 — 2015</div>
-                  <div className="timeline-role">Senior IT Architect</div>
-                  <div className="timeline-company">
-                    IBM Canada — Custom Hosting Services
-                  </div>
-                </div>
-                <div className="timeline-item">
-                  <div className="timeline-year">2002 — 2008</div>
-                  <div className="timeline-role">Technical Lead & Senior Architect</div>
-                  <div className="timeline-company">
-                    IBM Canada
-                  </div>
-                </div>
-                <div className="timeline-item">
-                  <div className="timeline-year">Earlier</div>
-                  <div className="timeline-role">Project Leader / Intranet Architect</div>
-                  <div className="timeline-company">Kraft Canada · IBM Canada</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <footer>
           <p>© 2026 Dave Manning · B.Eng.Mgt, MBA · Burlington, ON</p>
           <p>Agentic AI Leader · davem.ca</p>
