@@ -493,7 +493,7 @@ export default function Home() {
                     name="name"
                     type="text"
                     required
-                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="mt-1 w-full rounded-md border border-slate-500 bg-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </label>
                 <label>
@@ -502,7 +502,7 @@ export default function Home() {
                     name="email"
                     type="email"
                     required
-                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="mt-1 w-full rounded-md border border-slate-500 bg-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </label>
                 <label>
@@ -511,7 +511,7 @@ export default function Home() {
                     name="message"
                     rows={4}
                     required
-                    className="mt-1 w-full resize-none rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="mt-1 w-full resize-none rounded-md border border-slate-500 bg-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </label>
                 <button type="submit" className="btn-primary" disabled={status === "sending"}>
