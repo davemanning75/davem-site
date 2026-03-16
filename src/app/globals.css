@@ -738,6 +738,29 @@ h2.section-title {
 }
 .contact-form button {
   align-self: flex-start;
+  cursor: pointer;
+}
+
+.contact-thankyou {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(0, 184, 255, 0.4);
+  background: rgba(0, 184, 255, 0.06);
+  border-radius: 14px;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+.contact-error {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 0, 80, 0.55);
+  background: rgba(255, 0, 80, 0.08);
+  border-radius: 14px;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: rgba(255, 0, 80, 0.9);
 }
 
 .contact-right {}

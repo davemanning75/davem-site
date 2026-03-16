@@ -1,9 +1,53 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import WorkGrid from "@/components/WorkGrid";
 
 export default function Home() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const thankYouMessage = useMemo(() => {
+    if (status !== "sent") return null;
+    return (
+      <div className="contact-thankyou">
+        <strong>Thanks!</strong> Your message has been queued. I’ll follow up soon.
+      </div>
+    );
+  }, [status]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("sending");
+    setError(null);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error ?? "Unable to send message");
+      }
+
+      setStatus("sent");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setError((err as Error).message);
+    }
+  };
+
   useEffect(() => {
     const cursor = document.getElementById("cursor");
     const ring = document.getElementById("cursorRing");
@@ -401,19 +445,27 @@ export default function Home() {
                 first production agent, or looking for strategic leadership — I'd
                 like to connect.
               </p>
-              <form
-                className="contact-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = e.target as HTMLFormElement;
-                  const name = (form.elements.namedItem("name") as HTMLInputElement).value;
-                  const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-                  const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
-                  const subject = encodeURIComponent("email from davem.ca");
-                  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-                  window.location.href = `mailto:davemanning75@gmail.com?subject=${subject}&body=${body}`;
-                }}
+
+              <a
+                href="https://www.linkedin.com/in/davemanninggta/"
+                className="contact-link"
+                target="_blank"
+                rel="noreferrer"
               >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+                linkedin.com/in/davemanninggta
+              </a>
+
+              {thankYouMessage}
+              {status === "error" && (
+                <div className="contact-error">
+                  Sorry — something went wrong. Please try again or email directly.
+                </div>
+              )}
+
+              <form className="contact-form" onSubmit={handleSubmit}>
                 <label>
                   Name
                   <input name="name" type="text" required />
@@ -426,8 +478,8 @@ export default function Home() {
                   Message
                   <textarea name="message" rows={4} required />
                 </label>
-                <button type="submit" className="btn-primary">
-                  Send Email
+                <button type="submit" className="btn-primary" disabled={status === "sending"}>
+                  {status === "sending" ? "Sending…" : "Send Email"}
                 </button>
               </form>
             </div>
