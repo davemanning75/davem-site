@@ -226,9 +226,23 @@ export default function Home() {
                 <div className="stat-num">3</div>
                 <div className="stat-label">Director-Level Roles</div>
               </div>
-              <div className="stat-item">
+              <div className="stat-item stat-item-tooltip" tabIndex={0}>
                 <div className="stat-num">F500</div>
                 <div className="stat-label">Enterprise Clients</div>
+                <div
+                  className="stat-popup"
+                  role="note"
+                  aria-label="Industry experience includes Financial, Manufacturing, Public Sector, Technology, and Education"
+                >
+                  <div className="stat-popup-title">Industry Experience</div>
+                  <ul className="stat-popup-list">
+                    <li>Financial</li>
+                    <li>Manufacturing</li>
+                    <li>Public Sector</li>
+                    <li>Technology</li>
+                    <li>Education</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -406,6 +420,17 @@ export default function Home() {
             <div className="career-header reveal">
               <p className="section-label">Career</p>
               <h2 className="section-title">Career Timeline</h2>
+              <p className="career-note">
+                For specific role detail, project scope, and full chronology, see{" "}
+                <a
+                  href="https://www.linkedin.com/in/davemanninggta/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+                .
+              </p>
             </div>
             <div className="experience-timeline">
               <div className="timeline-item">
@@ -416,7 +441,7 @@ export default function Home() {
               <div className="timeline-item">
                 <div className="timeline-year">2015 — 2021</div>
                 <div className="timeline-role">
-                  Director, Consulting — Enterprise Archtecture, Tech Strategy & Innovation
+                  Director, Consulting — Enterprise Architecture, Tech Strategy & Innovation
                 </div>
                 <div className="timeline-company">CGI Inc.</div>
               </div>
@@ -438,6 +463,25 @@ export default function Home() {
                 <div className="timeline-year">Earlier</div>
                 <div className="timeline-role">Project Leader / Intranet Architect</div>
                 <div className="timeline-company">Kraft Canada · IBM Canada</div>
+              </div>
+            </div>
+            <div className="career-education reveal">
+              <p className="career-subtitle">Formal Education</p>
+              <div className="education-list">
+                <div className="education-item">
+                  <div className="education-degree">
+                    MBA (Managing Innovation and New Technology)
+                  </div>
+                  <div className="education-school">McMaster University</div>
+                  <div className="education-year">2001</div>
+                </div>
+                <div className="education-item">
+                  <div className="education-degree">
+                    B.Eng.Mgt (Computer Engineering and Management)
+                  </div>
+                  <div className="education-school">McMaster University</div>
+                  <div className="education-year">2000</div>
+                </div>
               </div>
             </div>
           </div>
