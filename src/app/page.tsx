@@ -226,9 +226,23 @@ export default function Home() {
                 <div className="stat-num">3</div>
                 <div className="stat-label">Director-Level Roles</div>
               </div>
-              <div className="stat-item">
+              <div className="stat-item stat-item-tooltip" tabIndex={0}>
                 <div className="stat-num">F500</div>
                 <div className="stat-label">Enterprise Clients</div>
+                <div
+                  className="stat-popup"
+                  role="note"
+                  aria-label="Industry experience includes Financial, Manufacturing, Public Sector, Technology, and Education"
+                >
+                  <div className="stat-popup-title">Industry Experience</div>
+                  <ul className="stat-popup-list">
+                    <li>Financial</li>
+                    <li>Manufacturing</li>
+                    <li>Public Sector</li>
+                    <li>Technology</li>
+                    <li>Education</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -406,6 +420,17 @@ export default function Home() {
             <div className="career-header reveal">
               <p className="section-label">Career</p>
               <h2 className="section-title">Career Timeline</h2>
+              <p className="career-note">
+                For specific role detail, project scope, and full chronology, see{" "}
+                <a
+                  href="https://www.linkedin.com/in/davemanninggta/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+                .
+              </p>
             </div>
             <div className="experience-timeline">
               <div className="timeline-item">
@@ -416,7 +441,7 @@ export default function Home() {
               <div className="timeline-item">
                 <div className="timeline-year">2015 — 2021</div>
                 <div className="timeline-role">
-                  Director, Consulting — Enterprise Archtecture, Tech Strategy & Innovation
+                  Director, Consulting — Enterprise Architecture, Tech Strategy & Innovation
                 </div>
                 <div className="timeline-company">CGI Inc.</div>
               </div>
@@ -431,13 +456,32 @@ export default function Home() {
                 <div className="timeline-year">2002 — 2008</div>
                 <div className="timeline-role">Technical Lead & Senior Architect</div>
                 <div className="timeline-company">
-                  IBM Canada
+                  IBM Canada - Common Development and Test Centre
                 </div>
               </div>
               <div className="timeline-item">
                 <div className="timeline-year">Earlier</div>
                 <div className="timeline-role">Project Leader / Intranet Architect</div>
                 <div className="timeline-company">Kraft Canada · IBM Canada</div>
+              </div>
+            </div>
+            <div className="career-education reveal">
+              <p className="career-subtitle">Formal Education</p>
+              <div className="education-list">
+                <div className="education-item">
+                  <div className="education-degree">
+                    MBA (Managing Innovation and New Technology)
+                  </div>
+                  <div className="education-school">McMaster University</div>
+                  <div className="education-year">2001</div>
+                </div>
+                <div className="education-item">
+                  <div className="education-degree">
+                    B.Eng.Mgt (Computer Engineering and Management)
+                  </div>
+                  <div className="education-school">McMaster University</div>
+                  <div className="education-year">2000</div>
+                </div>
               </div>
             </div>
           </div>
@@ -455,18 +499,6 @@ export default function Home() {
                 first production agent, or looking for strategic leadership — I'd
                 like to connect.
               </p>
-
-              <a
-                href="https://www.linkedin.com/in/davemanninggta/"
-                className="contact-link"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                linkedin.com/in/davemanninggta
-              </a>
 
               {validationError && (
                 <div className="contact-error">
@@ -526,9 +558,20 @@ export default function Home() {
           </div>
         </section>
 
-        <footer>
-          <p>© 2026 Dave Manning · B.Eng.Mgt, MBA · Burlington, ON</p>
-          <p>Agentic AI Leader · davem.ca</p>
+        <footer className="site-footer">
+          <div className="footer-meta">
+            <p>© 2026 Dave Manning · B.Eng.Mgt, MBA · Burlington, ON · Agentic AI Leader · davem.ca</p>
+          
+          </div>
+          <a
+            href="https://www.linkedin.com/in/davemanninggta/"
+            className="footer-linkedin"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn profile"
+          >
+            in
+          </a>
         </footer>
       </main>
     </>
