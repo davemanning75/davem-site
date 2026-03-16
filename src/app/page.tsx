@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import WorkGrid from "@/components/WorkGrid";
 
 export default function Home() {
-  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [validationError, setValidationError] = useState<string | null>(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -46,6 +46,9 @@ export default function Home() {
     const subject = encodeURIComponent("email from davem.ca");
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
     window.location.href = `mailto:davemanning75@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show a brief success banner after attempting to open the mail client
+    setTimeout(() => setStatus("sent"), 400);
   };
 
   useEffect(() => {
@@ -172,6 +175,13 @@ export default function Home() {
       cancelAnimationFrame(rafId);
     };
   }, []);
+
+  useEffect(() => {
+    if (status !== "sent") return;
+
+    const timer = window.setTimeout(() => setStatus("idle"), 4000);
+    return () => window.clearTimeout(timer);
+  }, [status]);
 
   return (
     <>
@@ -466,6 +476,12 @@ export default function Home() {
               {status === "error" && (
                 <div className="contact-error">
                   Sorry — something went wrong. Please try again.
+                </div>
+              )}
+              {status === "sent" && (
+                <div className="contact-thankyou">
+                  <span>📬</span>
+                  Mail composer opened. Send when ready.
                 </div>
               )}
 

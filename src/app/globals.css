@@ -657,6 +657,13 @@ h2.section-title {
   gap: 6rem;
   align-items: center;
 }
+#career {
+  padding: 7rem 4rem;
+}
+.career-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
 .contact-left h2 {
   font-family: var(--display);
   font-size: clamp(2.2rem, 4vw, 3.5rem);
