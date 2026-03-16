@@ -6,6 +6,7 @@ import WorkGrid from "@/components/WorkGrid";
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const thankYouMessage = useMemo(() => {
     if (status !== "sent") return null;
@@ -18,21 +19,47 @@ export default function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus("sending");
+    setStatus("idle");
     setError(null);
+    setValidationError(null);
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+    const honeypot = String(formData.get("hp") ?? "").trim();
+
+    if (honeypot) {
+      // Likely a bot
+      setValidationError("Spam detected.");
+      return;
+    }
+
+    if (!name || !email || !message) {
+      setValidationError("Please fill in all fields.");
+      return;
+    }
+
+    if (message.length < 20) {
+      setValidationError("Please provide a bit more detail in the message.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setValidationError("Please enter a valid email address.");
+      return;
+    }
+
+    setStatus("sending");
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          message: formData.get("message"),
-        }),
+        body: JSON.stringify({ name, email, message, hp: honeypot }),
       });
 
       const data = await res.json();
@@ -459,6 +486,11 @@ export default function Home() {
               </a>
 
               {thankYouMessage}
+              {validationError && (
+                <div className="contact-error">
+                  {validationError}
+                </div>
+              )}
               {status === "error" && (
                 <div className="contact-error">
                   Sorry — something went wrong. Please try again or email directly.
@@ -466,6 +498,7 @@ export default function Home() {
               )}
 
               <form className="contact-form" onSubmit={handleSubmit}>
+                <input type="text" name="hp" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
                 <label>
                   Name
                   <input name="name" type="text" required />
@@ -479,7 +512,11 @@ export default function Home() {
                   <textarea name="message" rows={4} required />
                 </label>
                 <button type="submit" className="btn-primary" disabled={status === "sending"}>
-                  {status === "sending" ? "Sending…" : "Send Email"}
+                  {status === "sending" ? (
+                    <span className="spinner" />
+                  ) : (
+                    "Send Email"
+                  )}
                 </button>
               </form>
             </div>

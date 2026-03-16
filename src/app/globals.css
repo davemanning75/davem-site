@@ -750,6 +750,9 @@ h2.section-title {
   font-family: var(--mono);
   font-size: 0.9rem;
   color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .contact-error {
@@ -761,6 +764,26 @@ h2.section-title {
   font-family: var(--mono);
   font-size: 0.9rem;
   color: rgba(255, 0, 80, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--blue-electric);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .contact-right {}

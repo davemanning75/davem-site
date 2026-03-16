@@ -2,11 +2,25 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, message } = (await request.json()) as {
+    const { name, email, message, hp } = (await request.json()) as {
       name: string;
       email: string;
       message: string;
+      hp?: string;
     };
+
+    if (hp) {
+      // Honeypot filled: likely spam
+      return NextResponse.json({ ok: true });
+    }
+
+    if (!name || !email || !message) {
+      return NextResponse.json({ ok: false, error: "Missing required fields." }, { status: 400 });
+    }
+
+    if (typeof message !== "string" || message.trim().length < 20) {
+      return NextResponse.json({ ok: false, error: "Message too short." }, { status: 400 });
+    }
 
     const apiKey = process.env.SENDGRID_API_KEY;
     const fromEmail = process.env.SENDGRID_FROM_EMAIL ?? "davemanning75@gmail.com";
