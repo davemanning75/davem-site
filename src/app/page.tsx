@@ -456,7 +456,7 @@ export default function Home() {
                 <div className="timeline-year">2002 — 2008</div>
                 <div className="timeline-role">Technical Lead & Senior Architect</div>
                 <div className="timeline-company">
-                  IBM Canada
+                  IBM Canada - Common Development and Test Centre
                 </div>
               </div>
               <div className="timeline-item">
@@ -499,18 +499,6 @@ export default function Home() {
                 first production agent, or looking for strategic leadership — I'd
                 like to connect.
               </p>
-
-              <a
-                href="https://www.linkedin.com/in/davemanninggta/"
-                className="contact-link"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                linkedin.com/in/davemanninggta
-              </a>
 
               {validationError && (
                 <div className="contact-error">
@@ -570,9 +558,20 @@ export default function Home() {
           </div>
         </section>
 
-        <footer>
-          <p>© 2026 Dave Manning · B.Eng.Mgt, MBA · Burlington, ON</p>
-          <p>Agentic AI Leader · davem.ca</p>
+        <footer className="site-footer">
+          <div className="footer-meta">
+            <p>© 2026 Dave Manning · B.Eng.Mgt, MBA · Burlington, ON · Agentic AI Leader · davem.ca</p>
+          
+          </div>
+          <a
+            href="https://www.linkedin.com/in/davemanninggta/"
+            className="footer-linkedin"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn profile"
+          >
+            in
+          </a>
         </footer>
       </main>
     </>

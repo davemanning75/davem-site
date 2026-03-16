@@ -362,8 +362,9 @@ h1.hero-name .line2 {
 .stat-popup {
   position: absolute;
   left: 50%;
-  top: calc(100% + 0.9rem);
-  width: 240px;
+  top: auto;
+  bottom: calc(100% + 0.9rem);
+  width: min(240px, calc(100vw - 2.5rem));
   padding: 1rem 1.1rem;
   border: 1px solid rgba(0, 184, 255, 0.35);
   border-radius: 16px;
@@ -373,7 +374,7 @@ h1.hero-name .line2 {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translate(-50%, 10px);
+  transform: translate(-50%, -10px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
   z-index: 5;
 }
@@ -382,12 +383,13 @@ h1.hero-name .line2 {
   content: '';
   position: absolute;
   left: 50%;
-  top: -6px;
+  top: auto;
+  bottom: -6px;
   width: 12px;
   height: 12px;
   background: rgba(6, 19, 37, 0.94);
-  border-top: 1px solid rgba(0, 184, 255, 0.35);
-  border-left: 1px solid rgba(0, 184, 255, 0.35);
+  border-right: 1px solid rgba(0, 184, 255, 0.35);
+  border-bottom: 1px solid rgba(0, 184, 255, 0.35);
   transform: translateX(-50%) rotate(45deg);
 }
 
@@ -775,41 +777,6 @@ h2.section-title {
   line-height: 1.7;
   margin-bottom: 2.5rem;
 }
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 420px;
-}
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  text-decoration: none;
-  color: var(--white-dim);
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  padding: 0.5rem 0.75rem;
-  min-height: 44px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
-}
-.contact-link:hover {
-  border-color: rgba(0, 184, 255, 0.75);
-  color: rgba(255, 255, 255, 0.95);
-  background: rgba(255, 255, 255, 0.18);
-  transform: translateX(2px);
-}
-.contact-link svg {
-  width: 16px;
-  height: 16px;
-  color: var(--blue-electric);
-  flex-shrink: 0;
-}
 .contact-form {
   display: grid;
   gap: 1rem;
@@ -975,20 +942,50 @@ h2.section-title {
 }
 
 /* FOOTER */
-footer {
+.site-footer {
   padding: 2rem 4rem;
   border-top: 1px solid var(--blue-border);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 1rem;
   position: relative;
   z-index: 1;
+  text-align: center;
 }
-footer p {
+.footer-meta {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: center;
+}
+.site-footer p {
   font-family: var(--mono);
   font-size: 0.65rem;
-  color: var(--white-faint);
+  color: var(--blue-electric);
   letter-spacing: 0.08em;
+}
+.footer-linkedin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--blue-electric);
+  border-radius: 999px;
+  color: var(--blue-electric);
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.footer-linkedin:hover {
+  background: var(--blue-electric);
+  color: var(--navy-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 184, 255, 0.28);
 }
 
 /* ANIMATIONS */
@@ -1048,11 +1045,11 @@ footer p {
   #contact {
     padding: 5rem 2rem;
   }
-  footer {
+  .site-footer {
     padding: 1.5rem 2rem;
-    flex-direction: column;
+  }
+  .footer-meta {
     gap: 0.5rem;
-    text-align: center;
   }
   .hero-orb {
     display: none;
@@ -1081,16 +1078,18 @@ footer p {
     grid-template-columns: 1fr;
   }
   .stat-popup {
-    left: 0;
-    transform: translateY(10px);
+    left: 50%;
+    bottom: calc(100% + 0.75rem);
+    transform: translate(-50%, -10px);
   }
   .stat-popup::before {
-    left: 24px;
-    transform: rotate(45deg);
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%) rotate(45deg);
   }
   .stat-item-tooltip:hover .stat-popup,
   .stat-item-tooltip:focus-within .stat-popup {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
   }
 }
 
