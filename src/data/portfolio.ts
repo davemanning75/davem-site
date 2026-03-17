@@ -137,9 +137,9 @@ export const siteCopy = {
     responsibilitiesHeading: "Core responsibilities",
     signalsHeading: "Signals that still matter now",
     credentialsLabel: "Supporting credentials",
-    credentialsTitle: "Education stays in support of the story.",
+    credentialsTitle: "Education",
     credentialsBody:
-      "The degrees remain visible because they reinforce the blend of technical depth and management thinking. Everything else stays secondary to leadership proof and current relevance.",
+      "",
     chronologyLinkLabel: "Full chronology on LinkedIn",
   },
   contact: {
@@ -641,7 +641,7 @@ export const careerRoles: CareerRole[] = [
 export const educationHighlights = [
   "MBA, Managing Innovation and New Technology - McMaster University",
   "B.Eng.Mgt, Computer Engineering and Management - McMaster University",
-  "Selected recent learning across AI strategy, Microsoft and AWS cloud, and modern sales and advisory motion",
+  "Selected recent learning across AI strategy, Microsoft and AWS cloud, and modern sales and advisory motions",
 ];
 
 export const contactFocusAreas = [
