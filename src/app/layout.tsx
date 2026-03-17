@@ -1,28 +1,36 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Sans, Syne } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const displayFont = Syne({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bodyFont = Instrument_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const monoFont = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://davemanning.ca"),
-  title: "Dave Manning — Agentic AI Leader",
+  metadataBase: new URL("https://www.davem.ca"),
+  title: "Dave Manning | Executive AI Leadership and Production Delivery",
   description:
-    "Agentic AI leadership, enterprise AI architecture, and production-grade AI delivery.",
+    "Architect of AI operating models, governed enterprise AI delivery, and architecture teams that move from pilot to production.",
   openGraph: {
-    title: "Dave Manning — Agentic AI Leader",
+    title: "Dave Manning | Executive AI Leadership and Production Delivery",
     description:
-      "Agentic AI leadership, enterprise AI architecture, and production-grade AI delivery.",
-    url: "https://davemanning.ca",
+      "Architect of AI operating models, governed enterprise AI delivery, and architecture teams that move from pilot to production.",
+    url: "https://www.davem.ca",
     siteName: "Dave Manning",
     type: "website",
     images: [
@@ -30,15 +38,15 @@ export const metadata: Metadata = {
         url: "/og.svg",
         width: 1200,
         height: 630,
-        alt: "Dave Manning — Agentic AI Leader",
+        alt: "Dave Manning | Executive AI Leadership and Production Delivery",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dave Manning — Agentic AI Leader",
+    title: "Dave Manning | Executive AI Leadership and Production Delivery",
     description:
-      "Agentic AI leadership, enterprise AI architecture, and production-grade AI delivery.",
+      "Architect of AI operating models, governed enterprise AI delivery, and architecture teams that move from pilot to production.",
     images: ["/og.svg"],
   },
   icons: {
@@ -53,9 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
         <Nav />
         {children}
       </body>

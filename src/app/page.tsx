@@ -1,11 +1,24 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import CareerPanels from "@/components/CareerPanels";
+import OperatingModel from "@/components/OperatingModel";
 import WorkGrid from "@/components/WorkGrid";
+import {
+  contactFocusAreas,
+  heroMandate,
+  heroMetrics,
+  heroSignals,
+  leadershipPillars,
+  siteCopy,
+  snapshotGroups,
+} from "@/data/portfolio";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [validationError, setValidationError] = useState<string | null>(null);
+  const { contact, footer, hero, mandate } = siteCopy;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,86 +34,124 @@ export default function Home() {
     const honeypot = String(formData.get("hp") ?? "").trim();
 
     if (honeypot) {
-      setValidationError("Spam detected.");
+      setValidationError(contact.validationMessages.spam);
       return;
     }
 
     if (!name || !email || !message) {
-      setValidationError("Please fill in all fields.");
+      setValidationError(contact.validationMessages.required);
       return;
     }
 
     if (message.length < 20) {
-      setValidationError("Please provide a bit more detail in the message.");
+      setValidationError(contact.validationMessages.detail);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setValidationError("Please enter a valid email address.");
+      setValidationError(contact.validationMessages.email);
       return;
     }
 
     setStatus("sending");
 
-    const subject = encodeURIComponent("email from davem.ca");
+    const subject = encodeURIComponent(contact.subject);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    window.location.href = `mailto:davemanning75@gmail.com?subject=${subject}&body=${body}`;
 
-    // Show a brief success banner after attempting to open the mail client
-    setTimeout(() => setStatus("sent"), 400);
+    try {
+      window.location.href = `mailto:davemanning75@gmail.com?subject=${subject}&body=${body}`;
+      window.setTimeout(() => setStatus("sent"), 400);
+    } catch {
+      setStatus("error");
+    }
   };
 
   useEffect(() => {
+    const cursorEnabled = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const cursor = document.getElementById("cursor");
     const ring = document.getElementById("cursorRing");
-    let mx = 0;
-    let my = 0;
-    let rx = 0;
-    let ry = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let ringX = 0;
+    let ringY = 0;
+    let ringFrameId = 0;
+    let starsFrameId = 0;
 
-    const onMouseMove = (e: MouseEvent) => {
-      mx = e.clientX;
-      my = e.clientY;
+    if (!cursorEnabled) {
       if (cursor) {
-        cursor.style.left = `${mx}px`;
-        cursor.style.top = `${my}px`;
+        cursor.style.display = "none";
+      }
+
+      if (ring) {
+        ring.style.display = "none";
+      }
+    }
+
+    const onMouseMove = (event: MouseEvent) => {
+      if (!cursorEnabled) {
+        return;
+      }
+
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
+      if (cursor) {
+        cursor.style.left = `${mouseX}px`;
+        cursor.style.top = `${mouseY}px`;
       }
     };
 
-    document.addEventListener("mousemove", onMouseMove);
-
-    let rafId: number;
+    if (cursorEnabled) {
+      document.addEventListener("mousemove", onMouseMove);
+    }
 
     const animateRing = () => {
-      if (!ring) return;
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = `${rx}px`;
-      ring.style.top = `${ry}px`;
-      rafId = requestAnimationFrame(animateRing);
+      if (!ring) {
+        return;
+      }
+
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = `${ringX}px`;
+      ring.style.top = `${ringY}px`;
+      ringFrameId = requestAnimationFrame(animateRing);
     };
 
-    animateRing();
+    if (cursorEnabled) {
+      animateRing();
+    }
 
     const onHoverEnter = () => {
-      if (!ring) return;
+      if (!ring) {
+        return;
+      }
+
       ring.style.width = "52px";
       ring.style.height = "52px";
-      ring.style.opacity = "0.7";
-    };
-    const onHoverLeave = () => {
-      if (!ring) return;
-      ring.style.width = "36px";
-      ring.style.height = "36px";
-      ring.style.opacity = "0.4";
+      ring.style.opacity = "0.72";
     };
 
-    const hoverTargets = Array.from(document.querySelectorAll("a, button"));
-    hoverTargets.forEach((el) => {
-      el.addEventListener("mouseenter", onHoverEnter);
-      el.addEventListener("mouseleave", onHoverLeave);
-    });
+    const onHoverLeave = () => {
+      if (!ring) {
+        return;
+      }
+
+      ring.style.width = "36px";
+      ring.style.height = "36px";
+      ring.style.opacity = "0.42";
+    };
+
+    const hoverTargets = Array.from(
+      document.querySelectorAll<HTMLElement>("a, button, summary"),
+    );
+
+    if (cursorEnabled) {
+      hoverTargets.forEach((element) => {
+        element.addEventListener("mouseenter", onHoverEnter);
+        element.addEventListener("mouseleave", onHoverLeave);
+      });
+    }
 
     const canvas = document.getElementById("stars") as HTMLCanvasElement | null;
     const ctx = canvas?.getContext("2d");
@@ -112,41 +163,47 @@ export default function Home() {
       speed: number;
     }> = [];
 
-    const resize = () => {
-      if (!canvas) return;
+    const resizeCanvas = () => {
+      if (!canvas) {
+        return;
+      }
+
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
 
     const createStars = () => {
       stars.length = 0;
-      for (let i = 0; i < 200; i++) {
+      for (let index = 0; index < 180; index += 1) {
         stars.push({
           x: Math.random(),
           y: Math.random(),
-          r: Math.random() * 1.2 + 0.2,
+          r: Math.random() * 1.15 + 0.2,
           a: Math.random(),
-          speed: Math.random() * 0.0002 + 0.00005,
+          speed: Math.random() * 0.00018 + 0.00004,
         });
       }
     };
 
     const drawStars = () => {
-      if (!ctx || !canvas) return;
+      if (!ctx || !canvas) {
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach((s) => {
-        s.a += s.speed;
-        const alpha = 0.2 + 0.5 * Math.abs(Math.sin(s.a));
+      stars.forEach((star) => {
+        star.a += star.speed;
+        const alpha = 0.18 + 0.42 * Math.abs(Math.sin(star.a));
         ctx.beginPath();
-        ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,184,255,${alpha})`;
+        ctx.arc(star.x * canvas.width, star.y * canvas.height, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(120, 215, 240, ${alpha})`;
         ctx.fill();
       });
-      requestAnimationFrame(drawStars);
+      starsFrameId = requestAnimationFrame(drawStars);
     };
 
-    resize();
-    window.addEventListener("resize", resize);
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
     createStars();
     drawStars();
 
@@ -159,25 +216,31 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.12 },
+      { threshold: 0.14 },
     );
 
-    reveals.forEach((r) => observer.observe(r));
+    reveals.forEach((element) => observer.observe(element));
 
     return () => {
-      document.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("resize", resize);
-      hoverTargets.forEach((el) => {
-        el.removeEventListener("mouseenter", onHoverEnter);
-        el.removeEventListener("mouseleave", onHoverLeave);
-      });
+      if (cursorEnabled) {
+        document.removeEventListener("mousemove", onMouseMove);
+        hoverTargets.forEach((element) => {
+          element.removeEventListener("mouseenter", onHoverEnter);
+          element.removeEventListener("mouseleave", onHoverLeave);
+        });
+      }
+
+      window.removeEventListener("resize", resizeCanvas);
       observer.disconnect();
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(ringFrameId);
+      cancelAnimationFrame(starsFrameId);
     };
   }, []);
 
   useEffect(() => {
-    if (status !== "sent") return;
+    if (status !== "sent") {
+      return;
+    }
 
     const timer = window.setTimeout(() => setStatus("idle"), 4000);
     return () => window.clearTimeout(timer);
@@ -190,368 +253,177 @@ export default function Home() {
       <div id="cursor" className="cursor" />
       <div id="cursorRing" className="cursor-ring" />
 
-      <main id="top">
-        <section id="hero">
-          <div className="hero-inner">
-            <div className="hero-label">
-              <span /> Agentic AI Leader · Architect · Strategist
-            </div>
-            <h1 className="hero-name">
-              Dave <br />
-              <span className="line2">Manning</span>
-            </h1>
-            <p className="hero-tagline">
-              Building the frameworks that move enterprises from <strong>AI
-              ambition to production reality</strong> — at measurable, repeatable
-              velocity.
-            </p>
-            <div className="hero-ctas">
-              <a className="btn-primary" href="#work">
-                View My Work
-              </a>
-              <a className="btn-outline" href="#contact">
-                Get In Touch
-              </a>
-            </div>
-            <div className="hero-stats reveal">
-              <div className="stat-item">
-                <div className="stat-num">20+</div>
-                <div className="stat-label">Years in Enterprise IT</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-num">AI<span style={{ fontSize: "1rem" }}>Factory</span></div>
-                <div className="stat-label">Architect</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-num">3</div>
-                <div className="stat-label">Director-Level Roles</div>
-              </div>
-              <div className="stat-item stat-item-tooltip" tabIndex={0}>
-                <div className="stat-num">F500</div>
-                <div className="stat-label">Enterprise Clients</div>
-                <div
-                  className="stat-popup"
-                  role="note"
-                  aria-label="Industry experience includes Financial, Manufacturing, Public Sector, Technology, and Education"
-                >
-                  <div className="stat-popup-title">Industry Experience</div>
-                  <ul className="stat-popup-list">
-                    <li>Financial</li>
-                    <li>Manufacturing</li>
-                    <li>Public Sector</li>
-                    <li>Technology</li>
-                    <li>Education</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+      <main id="top" className="site-main">
+        <section id="hero" className="hero-section">
+          <div className="section-shell hero-shell">
+            <div className="hero-copy">
+              <p className="section-label hero-label">{hero.label}</p>
+              <h1 className="hero-title">{hero.title}</h1>
+              <p className="hero-intro">{hero.intro}</p>
 
-          <div className="hero-headshot-wrapper">
-            <img
-              className="hero-headshot"
-              src="/headshot.png"
-              alt="Dave Manning"
-            />
-          </div>
-        </section>
-
-        <section id="about" className="reveal">
-          <div className="about-inner">
-            <div className="about-text">
-              <div className="section-label">About</div>
-              <h2 className="section-title">Agentic AI for real-world impact</h2>
-              <p>
-                I design and deliver intelligent systems that enable
-                organizations to move faster and act with confidence. My focus
-                is on building scalable, explainable AI experiences that
-                include strategy, product, and technical execution.
-              </p>
-              <p>
-                Whether it’s launching new platforms, optimizing existing
-                processes or mentoring teams, I help bring AI projects from
-                concept to reliable operation.
-              </p>
-              <a className="btn-outline" href="#contact">
-                Let’s talk
-              </a>
-            </div>
-            <div className="about-box reveal p-8 text-lg leading-relaxed">
-              <h3>Latest Work</h3>
-              <p>
-                Currently leading architecture and design on a large-scale agentic
-                platforms that helps teams coordinate complex workflows with AI.
-              </p>
-              <a href="#work">View case studies</a>
-            </div>
-          </div>
-        </section>
-
-        <section id="services">
-          <div className="services-inner">
-            <div className="services-header reveal">
-              <p className="section-label">What I Do</p>
-              <h2 className="section-title">AI strategy, delivery, professional/managed services, and governance</h2>
-            </div>
-            <div className="services-grid">
-              <div className="service-card reveal">
-                <div className="service-num">01</div>
-                <svg
-                  className="service-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                >
-                  <path d="M22 12H2" />
-                  <path d="M12 2v20" />
-                  <path d="M6 7l6 5 6-5" />
-                  <path d="M6 17l6-5 6 5" />
-                </svg>
-                <h3>Agentic AI Product & Platform Delivery</h3>
-                <p>
-                  From pioneering agent platforms to production-grade AI services,
-                  I lead end-to-end delivery — architecture, data, tooling, and
-                  measurable outcomes.
-                </p>
-              </div>
-              <div className="service-card reveal" style={{ transitionDelay: "0.1s" }}>
-                <div className="service-num">02</div>
-                <svg
-                  className="service-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                >
-                  <path d="M12 20l9-12H3l9 12z" />
-                  <path d="M12 12v8" />
-                </svg>
-                <h3>AI Architecture & Cloud Foundations</h3>
-                <p>
-                  Defining scalable, secure architectural patterns — from landing
-                  zones to end-to-end agent orchestration across cloud and hybrid
-                  environments.
-                </p>
-              </div>
-              <div className="service-card reveal" style={{ transitionDelay: "0.2s" }}>
-                <div className="service-num">03</div>
-                <svg
-                  className="service-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                >
-                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-                </svg>
-                <h3>Architecture Leadership & Team Building</h3>
-                <p>
-                  Recruiting, coaching, and developing high-performing architecture
-                  practices. Translating technical strategy into business language
-                  that executives act on.
-                </p>
-              </div>
-              <div className="service-card reveal" style={{ transitionDelay: "0.3s" }}>
-                <div className="service-num">04</div>
-                <svg
-                  className="service-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                >
-                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                </svg>
-                <h3>IT Strategy & Enterprise Roadmaps</h3>
-                <p>
-                  Developing comprehensive IT roadmaps aligned to business
-                  strategy — cloud modernization, infrastructure transformation,
-                  and AI integration across regulated industries.
-                </p>
-              </div>
-              <div className="service-card reveal" style={{ transitionDelay: "0.4s" }}>
-                <div className="service-num">05</div>
-                <svg
-                  className="service-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-                <h3>Regulated Industry AI Governance</h3>
-                <p>
-                  Securing enterprise AI in financial services and regulated sectors
-                  — role-based access, audit trails, compliance risk management,
-                  and responsible AI by design.
-                </p>
-              </div>
-              <div className="service-card reveal" style={{ transitionDelay: "0.5s" }}>
-                <div className="service-num">06</div>
-                <svg
-                  className="service-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                >
-                  <line x1="12" y1="1" x2="12" y2="23" />
-                  <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
-                </svg>
-                <h3>Pre-Sales, Proposals & Solution Consulting</h3>
-                <p>
-                  Winning complex enterprise deals — building proposals, SOWs, and
-                  solution architectures that connect technical depth to business
-                  value and executive decision-making.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <WorkGrid />
-
-        <section id="career">
-          <div className="career-inner">
-            <div className="career-header reveal">
-              <p className="section-label">Career</p>
-              <h2 className="section-title">Career Timeline</h2>
-              <p className="career-note">
-                For specific role detail, project scope, and full chronology, see{" "}
-                <a
-                  href="https://www.linkedin.com/in/davemanninggta/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn
+              <div className="hero-cta-row">
+                <a className="btn-primary" href="#work">
+                  {hero.primaryCtaLabel}
                 </a>
-                .
-              </p>
-            </div>
-            <div className="experience-timeline">
-              <div className="timeline-item">
-                <div className="timeline-year">2021 — Present</div>
-                <div className="timeline-role">Director of Architecture</div>
-                <div className="timeline-company">Centrilogic / WatServ</div>
+                <a className="btn-outline" href="#contact">
+                  {hero.secondaryCtaLabel}
+                </a>
               </div>
-              <div className="timeline-item">
-                <div className="timeline-year">2015 — 2021</div>
-                <div className="timeline-role">
-                  Director, Consulting — Enterprise Architecture, Tech Strategy & Innovation
-                </div>
-                <div className="timeline-company">CGI Inc.</div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-year">2008 — 2015</div>
-                <div className="timeline-role">Senior IT Architect</div>
-                <div className="timeline-company">
-                  IBM Canada — Custom Hosting Services
-                </div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-year">2002 — 2008</div>
-                <div className="timeline-role">Technical Lead & Senior Architect</div>
-                <div className="timeline-company">
-                  IBM Canada - Common Development and Test Centre
-                </div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-year">Earlier</div>
-                <div className="timeline-role">Project Leader / Intranet Architect</div>
-                <div className="timeline-company">Kraft Canada · IBM Canada</div>
+
+              <div className="hero-signal-grid reveal">
+                {heroSignals.map((signal) => (
+                  <article key={signal.label} className="hero-signal-card">
+                    <div className="hero-signal-value">{signal.value}</div>
+                    <p className="hero-signal-label">{signal.label}</p>
+                    <p className="hero-signal-detail">{signal.detail}</p>
+                  </article>
+                ))}
               </div>
             </div>
-            <div className="career-education reveal">
-              <p className="career-subtitle">Formal Education</p>
-              <div className="education-list">
-                <div className="education-item">
-                  <div className="education-degree">
-                    MBA (Managing Innovation and New Technology)
-                  </div>
-                  <div className="education-school">McMaster University</div>
-                  <div className="education-year">2001</div>
-                </div>
-                <div className="education-item">
-                  <div className="education-degree">
-                    B.Eng.Mgt (Computer Engineering and Management)
-                  </div>
-                  <div className="education-school">McMaster University</div>
-                  <div className="education-year">2000</div>
+
+            <aside className="hero-aside reveal">
+              <div className="hero-portrait-frame">
+                <Image
+                  src="/headshot.png"
+                  alt={hero.imageAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 900px) 70vw, 28vw"
+                  className="hero-portrait"
+                />
+              </div>
+
+              <div className="hero-brief-card">
+                <p className="card-label">{hero.briefLabel}</p>
+                <h2>{hero.briefTitle}</h2>
+                <ul className="signal-list compact-list">
+                  {heroMandate.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+
+                <div className="hero-metric-grid">
+                  {heroMetrics.map((metric) => (
+                    <div key={metric.label} className="hero-metric-item">
+                      <div className="hero-metric-value">{metric.value}</div>
+                      <p>{metric.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="about" className="section-block">
+          <div className="section-shell">
+            <div className="section-heading reveal">
+              <p className="section-label">{mandate.label}</p>
+              <h2 className="section-title">{mandate.title}</h2>
+              <p className="section-intro">{mandate.intro}</p>
+            </div>
+
+            <div className="narrative-grid">
+              <div className="narrative-copy reveal">
+                {mandate.narrative.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+
+              <aside className="narrative-note reveal">
+                <p className="card-label">{mandate.noteLabel}</p>
+                <h3>{mandate.noteTitle}</h3>
+                <p>{mandate.noteBody}</p>
+                <ul className="signal-list compact-list">
+                  {mandate.noteBullets.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </aside>
+            </div>
+
+            <div className="pillar-grid">
+              {leadershipPillars.map((pillar) => (
+                <article key={pillar.title} className="pillar-card reveal">
+                  <p className="card-step">{pillar.step}</p>
+                  <h3>{pillar.title}</h3>
+                  <p>{pillar.description}</p>
+                  <div className="tag-row">
+                    {pillar.proof.map((item) => (
+                      <span key={item} className="tag-chip">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="snapshot-grid reveal">
+              {snapshotGroups.map((group) => (
+                <article key={group.title} className="snapshot-card">
+                  <p className="card-label">{group.title}</p>
+                  <div className="tag-row">
+                    {group.items.map((item) => (
+                      <span key={item} className="tag-chip muted-chip">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        <section id="contact">
-          <div className="contact-inner">
-            <div className="contact-left reveal">
-              <p className="section-label">Contact</p>
-              <h2>
-                Let's build something <em>that actually ships.</em>
-              </h2>
-              <p>
-                Whether you're standing up an AI practice, architecting your
-                first production agent, or looking for strategic leadership — I'd
-                like to connect.
-              </p>
+        <OperatingModel />
+        <WorkGrid />
+        <CareerPanels />
 
-              {validationError && (
-                <div className="contact-error">
-                  {validationError}
-                </div>
-              )}
+        <section id="contact" className="section-block">
+          <div className="section-shell contact-layout">
+            <div className="contact-copy reveal">
+              <p className="section-label">{contact.label}</p>
+              <h2 className="section-title">{contact.title}</h2>
+              <p className="section-intro">{contact.intro}</p>
+
+              <ul className="signal-list contact-focus-list">
+                {contactFocusAreas.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+
+              {validationError && <div className="contact-error">{validationError}</div>}
               {status === "error" && (
-                <div className="contact-error">
-                  Sorry — something went wrong. Please try again.
-                </div>
+                <div className="contact-error">{contact.errorMessage}</div>
               )}
               {status === "sent" && (
-                <div className="contact-thankyou">
-                  <span>📬</span>
-                  Mail composer opened. Send when ready.
-                </div>
+                <div className="contact-thankyou">{contact.successMessage}</div>
               )}
+            </div>
 
+            <div className="contact-form-card reveal">
+              <p className="card-label">{contact.cardLabel}</p>
               <form className="contact-form" onSubmit={handleSubmit}>
-                <input type="text" name="hp" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+                <input type="text" name="hp" className="hp-field" tabIndex={-1} autoComplete="off" />
+
                 <label>
-                  Name
-                  <input
-                    name="name"
-                    type="text"
-                    required
-                    className="mt-1 w-full rounded-md border border-slate-500 bg-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  {contact.fieldLabels.name}
+                  <input name="name" type="text" required />
                 </label>
+
                 <label>
-                  Email
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    className="mt-1 w-full rounded-md border border-slate-500 bg-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  {contact.fieldLabels.email}
+                  <input name="email" type="email" required />
                 </label>
+
                 <label>
-                  Message
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    className="mt-1 w-full resize-none rounded-md border border-slate-500 bg-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  {contact.fieldLabels.message}
+                  <textarea name="message" rows={5} required />
                 </label>
+
                 <button type="submit" className="btn-primary" disabled={status === "sending"}>
-                  {status === "sending" ? (
-                    <span className="spinner" />
-                  ) : (
-                    "Send Email"
-                  )}
+                  {status === "sending" ? <span className="spinner" /> : contact.submitLabel}
                 </button>
               </form>
             </div>
@@ -560,17 +432,17 @@ export default function Home() {
 
         <footer className="site-footer">
           <div className="footer-meta">
-            <p>© 2026 Dave Manning · B.Eng.Mgt, MBA · Burlington, ON · Agentic AI Leader · davem.ca</p>
-          
+            <p>{footer.name}</p>
+            <span>{footer.meta}</span>
           </div>
           <a
             href="https://www.linkedin.com/in/davemanninggta/"
             className="footer-linkedin"
             target="_blank"
             rel="noreferrer"
-            aria-label="LinkedIn profile"
+            aria-label={footer.linkedinAriaLabel}
           >
-            in
+            {footer.linkedinLabel}
           </a>
         </footer>
       </main>
