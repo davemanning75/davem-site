@@ -1,28 +1,23 @@
-import Link from "next/link";
+import { siteCopy } from "@/data/portfolio";
 
 export default function Nav() {
+  const { navigation } = siteCopy;
+
   return (
-    <nav>
+    <nav className="site-nav" aria-label="Primary">
       <a className="nav-logo" href="#top">
-        DM / davem.ca
+        {navigation.brand}
       </a>
-      <ul className="nav-links">
-        <li>
-          <a href="#about">About</a>
-        </li>
-        <li>
-          <a href="#services">What I Do</a>
-        </li>
-        <li>
-          <a href="#work">Work</a>
-        </li>
-        <li>
-          <a href="#career">Career</a>
-        </li>
-        <li>
-          <a href="#contact">Contact</a>
-        </li>
-      </ul>
+      <div className="nav-links" role="list">
+        {navigation.links.map((link) => (
+          <a key={link.href} href={link.href} className="nav-link" role="listitem">
+            {link.label}
+          </a>
+        ))}
+      </div>
+      <a className="nav-cta" href="#contact">
+        {navigation.ctaLabel}
+      </a>
     </nav>
   );
 }
