@@ -57,6 +57,15 @@ export type CareerRole = {
   defaultOpen?: boolean;
 };
 
+export type LeaderVoice = {
+  id: string;
+  quote: string;
+  name: string;
+  title: string;
+  company: string;
+  context: string;
+};
+
 export const siteCopy = {
   navigation: {
     brand: "Dave Manning",
@@ -74,6 +83,7 @@ export const siteCopy = {
     title: "I build AI operating models that move enterprises from ambition to governed production delivery.",
     intro:
       "I architected Centrilogic's AI Factory and the COE, Landing Zone, and Agent Factory patterns behind it, then used those foundations to help teams deliver governed AI in regulated enterprise environments.",
+    pullQuoteId: "lokesh-kumar-padmanaban",
     primaryCtaLabel: "Review leadership proof",
     secondaryCtaLabel: "Start a leadership conversation",
     imageAlt: "Dave Manning",
@@ -128,6 +138,13 @@ export const siteCopy = {
       title: "What changed in practice",
     },
   },
+  voices: {
+    anchorId: "voices",
+    label: "What leaders say",
+    title: "Recognized for depth, delivery, and the ability to make complex things move.",
+    heroQuoteLabel: "",
+    sourceNote: "Source: LinkedIn recommendations.",
+  },
   career: {
     label: "Career",
     title: "Leadership progression, not resume sprawl.",
@@ -171,6 +188,36 @@ export const siteCopy = {
     linkedinAriaLabel: "LinkedIn profile",
   },
 } as const;
+
+export const leaderVoices: LeaderVoice[] = [
+  {
+    id: "derek-rickaby",
+    quote:
+      '"Dave was routinely sought out for his depth of expertise and his ability to analyze and set strategic direction for major projects and systems. He has a unique ability to lead large groups through mission-critical design and implementation programs."',
+    name: "Derek Rickaby",
+    title: "VP & Managing Director",
+    company: "NuvoLinQ",
+    context: "managed Dave directly",
+  },
+  {
+    id: "lokesh-kumar-padmanaban",
+    quote:
+      '"When architecture drives outcomes and challenges demand clarity, Dave Manning is the person I trust to lead."',
+    name: "Lokesh Kumar Padmanaban",
+    title: "Cloud Solutions Architect",
+    company: "CentriLogic",
+    context: "direct report, 3+ years",
+  },
+  {
+    id: "mike-coccimiglio",
+    quote:
+      '"Dave brings a rare blend of deep technical expertise and pragmatic business insight. His ability to distill complexity into actionable plans is invaluable. He excels in high-stakes environments with our most strategic and demanding customers. Dave is someone who can lead with vision, execute with rigor, and elevate the people and teams around him."',
+    name: "Mike Coccimiglio",
+    title: "Cloud Practice Lead",
+    company: "CentriLogic",
+    context: "Oct 2025",
+  },
+];
 
 export const heroSignals: HeroSignal[] = [
   {
@@ -641,7 +688,7 @@ export const careerRoles: CareerRole[] = [
 export const educationHighlights = [
   "MBA, Managing Innovation and New Technology - McMaster University",
   "B.Eng.Mgt, Computer Engineering and Management - McMaster University",
-  "Selected recent learning across AI strategy, Microsoft and AWS cloud, and modern sales and advisory motions",
+  "Select recent learning across AI strategy, Microsoft and AWS cloud, and modern sales and advisory motions",
 ];
 
 export const contactFocusAreas = [

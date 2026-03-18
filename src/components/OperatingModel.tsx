@@ -10,11 +10,17 @@ export default function OperatingModel() {
   const { operatingModel } = siteCopy;
 
   return (
-    <section id="services" className="section-block section-band">
+    <section
+      id="services"
+      className="section-block section-band"
+      aria-labelledby="operating-model-title"
+    >
       <div className="section-shell">
         <div className="section-heading reveal">
           <p className="section-label">{operatingModel.label}</p>
-          <h2 className="section-title">{operatingModel.title}</h2>
+          <h2 id="operating-model-title" className="section-title">
+            {operatingModel.title}
+          </h2>
           <p className="section-intro">{operatingModel.intro}</p>
         </div>
 
@@ -34,7 +40,9 @@ export default function OperatingModel() {
                   aria-controls={`phase-panel-${phase.id}`}
                   id={`phase-tab-${phase.id}`}
                 >
-                  <span className="phase-step">{phase.step}</span>
+                  <span className="phase-step" aria-hidden="true">
+                    {phase.step}
+                  </span>
                   <span className="phase-title">{phase.title}</span>
                   <span className="phase-summary">{phase.summary}</span>
                 </button>
@@ -48,12 +56,18 @@ export default function OperatingModel() {
             id={`phase-panel-${activePhase.id}`}
             aria-labelledby={`phase-tab-${activePhase.id}`}
           >
-            <p className="phase-detail-kicker">{operatingModel.detailKicker}</p>
+            <p className="phase-detail-kicker" aria-hidden="true">
+              {operatingModel.detailKicker}
+            </p>
             <h3>{activePhase.title}</h3>
             <p>{activePhase.description}</p>
 
-            <div className="phase-detail-grid">
-              <div className="phase-card">
+            <div
+              className="phase-detail-grid"
+              role="list"
+              aria-label="Operating model outcomes by audience"
+            >
+              <div className="phase-card" role="listitem">
                 <h4>{operatingModel.executiveHeading}</h4>
                 <ul className="signal-list">
                   {activePhase.executiveSignals.map((item) => (
@@ -62,7 +76,7 @@ export default function OperatingModel() {
                 </ul>
               </div>
 
-              <div className="phase-card">
+              <div className="phase-card" role="listitem">
                 <h4>{operatingModel.deliveryHeading}</h4>
                 <ul className="signal-list">
                   {activePhase.deliverySignals.map((item) => (
@@ -71,7 +85,7 @@ export default function OperatingModel() {
                 </ul>
               </div>
 
-              <div className="phase-card">
+              <div className="phase-card" role="listitem">
                 <h4>{operatingModel.proofHeading}</h4>
                 <ul className="signal-list">
                   {activePhase.proofSignals.map((item) => (

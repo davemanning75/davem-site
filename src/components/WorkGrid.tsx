@@ -4,39 +4,42 @@ export default function WorkGrid() {
   const { proof } = siteCopy;
 
   return (
-    <section id="work" className="section-block">
+    <section id="work" className="section-block" aria-labelledby="proof-title">
       <div className="section-shell">
         <div className="section-heading reveal">
           <p className="section-label">{proof.label}</p>
-          <h2 className="section-title">{proof.title}</h2>
+          <h2 id="proof-title" className="section-title">
+            {proof.title}
+          </h2>
           <p className="section-intro">{proof.intro}</p>
         </div>
 
-        <div className="proof-grid">
+        <div className="proof-grid" role="list" aria-label="Leadership proof surfaces">
           {proofCases.map((item) => (
             <details
               key={item.id}
               className={`proof-card reveal${item.featured ? " proof-card-featured" : ""}`}
               open={item.featured}
+              role="listitem"
             >
               <summary className="proof-summary">
                 <div className="proof-summary-main">
                   <p className="case-type">{item.category}</p>
                   <h3>{item.title}</h3>
                   <p className="proof-headline">{item.headline}</p>
-                  <span className="proof-toggle">{proof.toggleLabel}</span>
+                  <p className="proof-description">{item.summary}</p>
+
+                  <div className="case-outcomes" aria-label="Key impact">
+                    {item.impact.map((impact) => (
+                      <span key={impact} className="outcome">
+                        {impact}
+                      </span>
+                    ))}
+                  </div>
+
+                  <span className="proof-toggle" aria-hidden="true" />
                 </div>
               </summary>
-
-              <p className="proof-description">{item.summary}</p>
-
-              <div className="case-outcomes">
-                {item.impact.map((impact) => (
-                  <span key={impact} className="outcome">
-                    {impact}
-                  </span>
-                ))}
-              </div>
 
               <div className="proof-panel">
                 <div className="proof-panel-grid">

@@ -367,6 +367,7 @@ canvas#stars {
 }
 
 .hero-signal-card,
+.hero-pull-quote,
 .hero-brief-card,
 .narrative-note,
 .pillar-card,
@@ -374,6 +375,7 @@ canvas#stars {
 .phase-detail,
 .phase-card,
 .proof-card,
+.voice-card,
 .metric-card,
 .career-card,
 .education-card,
@@ -420,6 +422,7 @@ canvas#stars {
 .proof-headline,
 .proof-description,
 .career-description,
+.career-summary-copy,
 .career-scale,
 .contact-form label,
 .footer-meta span,
@@ -460,7 +463,19 @@ canvas#stars {
 }
 
 .hero-brief-card {
+  max-width: 42rem;
+  margin-top: 1.35rem;
   padding: 1.5rem;
+}
+
+.hero-pull-quote {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.35rem;
+  max-width: 42rem;
+  padding: 1.25rem 1.35rem;
+  border-color: rgba(214, 173, 99, 0.2);
+  background: linear-gradient(180deg, rgba(214, 173, 99, 0.08) 0%, rgba(8, 20, 34, 0.88) 100%);
 }
 
 .hero-brief-card h2,
@@ -483,6 +498,7 @@ canvas#stars {
 
 .hero-brief-card h2,
 .narrative-note h3,
+.voice-card h3,
 .education-card h3 {
   font-size: 1.45rem;
   margin-top: 0.3rem;
@@ -722,6 +738,54 @@ canvas#stars {
   gap: 1rem;
 }
 
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.voice-card {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.35rem;
+}
+
+.voice-quote {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.82;
+  color: var(--text);
+}
+
+.hero-pull-quote .voice-quote {
+  font-size: 1.08rem;
+}
+
+.voice-attribution {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.voice-identity {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.voice-context,
+.voices-source {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.voices-source {
+  margin: 1rem 0 0;
+}
+
 .proof-card {
   padding: 1.4rem;
 }
@@ -763,6 +827,10 @@ canvas#stars {
   gap: 0.45rem;
 }
 
+.career-summary-main {
+  display: grid;
+}
+
 .case-type {
   margin: 0 0 0.65rem;
   color: var(--accent-warm);
@@ -790,9 +858,15 @@ canvas#stars {
 .proof-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  width: fit-content;
-  margin-top: 0.35rem;
+  justify-content: center;
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  margin-top: 0.65rem;
+  border: 1px solid rgba(125, 225, 247, 0.18);
+  border-radius: 999px;
+  background: rgba(125, 225, 247, 0.05);
 }
 
 .proof-toggle::after {
@@ -874,17 +948,23 @@ canvas#stars {
 }
 
 .career-company,
+.career-summary-copy,
 .career-scale {
   margin: 0.45rem 0 0;
 }
 
-.career-description {
-  margin: 1rem 0 0;
+.career-summary-copy {
+  font-size: 1rem;
+  line-height: 1.72;
 }
 
 .education-card {
   position: sticky;
   top: 7rem;
+}
+
+.career-metric-grid {
+  margin-top: 1.75rem;
 }
 
 .metric-card {
@@ -1085,6 +1165,10 @@ canvas#stars {
   .snapshot-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .voices-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
@@ -1133,6 +1217,7 @@ canvas#stars {
   .hero-signal-grid,
   .pillar-grid,
   .snapshot-grid,
+  .voices-grid,
   .proof-grid,
   .phase-detail-grid,
   .career-panel-grid,
