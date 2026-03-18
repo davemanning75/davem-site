@@ -4,42 +4,39 @@ export default function CareerPanels() {
   const { career } = siteCopy;
 
   return (
-    <section id="career" className="section-block section-band-soft">
+    <section
+      id="career"
+      className="section-block section-band-soft"
+      aria-labelledby="career-title"
+    >
       <div className="section-shell">
         <div className="section-heading reveal">
           <p className="section-label">{career.label}</p>
-          <h2 className="section-title">{career.title}</h2>
+          <h2 id="career-title" className="section-title">
+            {career.title}
+          </h2>
           <p className="section-intro">{career.intro}</p>
         </div>
 
-        <div className="metric-grid reveal">
-          {careerMetrics.map((metric) => (
-            <article key={metric.label} className="metric-card">
-              <div className="metric-value">{metric.value}</div>
-              <p className="metric-label">{metric.label}</p>
-            </article>
-          ))}
-        </div>
-
         <div className="career-layout">
-          <div className="career-panels">
+          <div className="career-panels" role="list" aria-label="Career roles and scope">
             {careerRoles.map((role) => (
               <details
                 key={`${role.period}-${role.role}`}
                 className="career-card reveal"
                 open={role.defaultOpen}
+                role="listitem"
               >
                 <summary className="career-summary">
-                  <div>
+                  <div className="career-summary-main">
                     <p className="career-period">{role.period}</p>
                     <h3>{role.role}</h3>
                     <p className="career-company">{role.company}</p>
+                    <p className="career-summary-copy">{role.summary}</p>
+                    <p className="career-scale">{role.scale}</p>
                   </div>
-                  <span className="proof-toggle">{career.viewScopeLabel}</span>
+                  <span className="proof-toggle" aria-hidden="true" />
                 </summary>
-
-                <p className="career-description">{role.summary}</p>
-                <p className="career-scale">{role.scale}</p>
 
                 <div className="career-panel-grid">
                   <div>
@@ -64,10 +61,12 @@ export default function CareerPanels() {
             ))}
           </div>
 
-          <aside className="education-card reveal">
-            <p className="section-label">{career.credentialsLabel}</p>
-            <h3>{career.credentialsTitle}</h3>
-            <p>{career.credentialsBody}</p>
+          <section className="education-card reveal" aria-labelledby="career-credentials-title">
+            <p className="section-label" aria-hidden="true">
+              {career.credentialsLabel}
+            </p>
+            <h3 id="career-credentials-title">{career.credentialsTitle}</h3>
+            {career.credentialsBody ? <p>{career.credentialsBody}</p> : null}
 
             <ul className="signal-list">
               {educationHighlights.map((item) => (
@@ -83,7 +82,20 @@ export default function CareerPanels() {
             >
               {career.chronologyLinkLabel}
             </a>
-          </aside>
+          </section>
+        </div>
+
+        <div
+          className="metric-grid career-metric-grid reveal"
+          role="list"
+          aria-label="Supporting career metrics"
+        >
+          {careerMetrics.map((metric) => (
+            <article key={metric.label} className="metric-card" role="listitem">
+              <div className="metric-value">{metric.value}</div>
+              <p className="metric-label">{metric.label}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

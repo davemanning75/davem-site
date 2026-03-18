@@ -4,12 +4,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import CareerPanels from "@/components/CareerPanels";
 import OperatingModel from "@/components/OperatingModel";
+import VoicesSection from "@/components/VoicesSection";
 import WorkGrid from "@/components/WorkGrid";
 import {
   contactFocusAreas,
   heroMandate,
   heroMetrics,
   heroSignals,
+  leaderVoices,
   leadershipPillars,
   siteCopy,
   snapshotGroups,
@@ -18,7 +20,9 @@ import {
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [validationError, setValidationError] = useState<string | null>(null);
-  const { contact, footer, hero, mandate } = siteCopy;
+  const { contact, footer, hero, mandate, voices } = siteCopy;
+  const heroPullQuote =
+    leaderVoices.find((voice) => voice.id === hero.pullQuoteId) ?? leaderVoices[0];
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -254,11 +258,13 @@ export default function Home() {
       <div id="cursorRing" className="cursor-ring" />
 
       <main id="top" className="site-main">
-        <section id="hero" className="hero-section">
+        <section id="hero" className="hero-section" aria-labelledby="hero-title">
           <div className="section-shell hero-shell">
             <div className="hero-copy">
               <p className="section-label hero-label">{hero.label}</p>
-              <h1 className="hero-title">{hero.title}</h1>
+              <h1 id="hero-title" className="hero-title">
+                {hero.title}
+              </h1>
               <p className="hero-intro">{hero.intro}</p>
 
               <div className="hero-cta-row">
@@ -270,18 +276,53 @@ export default function Home() {
                 </a>
               </div>
 
-              <div className="hero-signal-grid reveal">
+              {heroPullQuote ? (
+                <figure className="hero-pull-quote reveal">
+                  {voices.heroQuoteLabel ? (
+                    <p className="card-label">{voices.heroQuoteLabel}</p>
+                  ) : null}
+                  <blockquote className="voice-quote">{heroPullQuote.quote}</blockquote>
+                  <figcaption className="voice-attribution">
+                    <span className="voice-identity">{heroPullQuote.name}, {heroPullQuote.title}</span>
+                  </figcaption>
+                </figure>
+              ) : null}
+
+              <div
+                className="hero-signal-grid reveal"
+                role="list"
+                aria-label="Executive leadership signals"
+              >
                 {heroSignals.map((signal) => (
-                  <article key={signal.label} className="hero-signal-card">
+                  <article key={signal.label} className="hero-signal-card" role="listitem">
                     <div className="hero-signal-value">{signal.value}</div>
                     <p className="hero-signal-label">{signal.label}</p>
                     <p className="hero-signal-detail">{signal.detail}</p>
                   </article>
                 ))}
               </div>
+
+              <section className="hero-brief-card reveal" aria-labelledby="hero-brief-title">
+                <p className="card-label">{hero.briefLabel}</p>
+                <h2 id="hero-brief-title">{hero.briefTitle}</h2>
+                <ul className="signal-list compact-list">
+                  {heroMandate.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+
+                <div className="hero-metric-grid" role="list" aria-label="Current leadership metrics">
+                  {heroMetrics.map((metric) => (
+                    <div key={metric.label} className="hero-metric-item" role="listitem">
+                      <div className="hero-metric-value">{metric.value}</div>
+                      <p>{metric.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
 
-            <aside className="hero-aside reveal">
+            <div className="hero-aside reveal">
               <div className="hero-portrait-frame">
                 <Image
                   src="/headshot.png"
@@ -292,34 +333,17 @@ export default function Home() {
                   className="hero-portrait"
                 />
               </div>
-
-              <div className="hero-brief-card">
-                <p className="card-label">{hero.briefLabel}</p>
-                <h2>{hero.briefTitle}</h2>
-                <ul className="signal-list compact-list">
-                  {heroMandate.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-
-                <div className="hero-metric-grid">
-                  {heroMetrics.map((metric) => (
-                    <div key={metric.label} className="hero-metric-item">
-                      <div className="hero-metric-value">{metric.value}</div>
-                      <p>{metric.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </aside>
+            </div>
           </div>
         </section>
 
-        <section id="about" className="section-block">
+        <section id="about" className="section-block" aria-labelledby="about-title">
           <div className="section-shell">
             <div className="section-heading reveal">
               <p className="section-label">{mandate.label}</p>
-              <h2 className="section-title">{mandate.title}</h2>
+              <h2 id="about-title" className="section-title">
+                {mandate.title}
+              </h2>
               <p className="section-intro">{mandate.intro}</p>
             </div>
 
@@ -330,22 +354,24 @@ export default function Home() {
                 ))}
               </div>
 
-              <aside className="narrative-note reveal">
+              <div className="narrative-note reveal" aria-labelledby="mandate-note-title">
                 <p className="card-label">{mandate.noteLabel}</p>
-                <h3>{mandate.noteTitle}</h3>
+                <h3 id="mandate-note-title">{mandate.noteTitle}</h3>
                 <p>{mandate.noteBody}</p>
                 <ul className="signal-list compact-list">
                   {mandate.noteBullets.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </aside>
+              </div>
             </div>
 
-            <div className="pillar-grid">
+            <div className="pillar-grid" role="list" aria-label="Leadership pillars">
               {leadershipPillars.map((pillar) => (
-                <article key={pillar.title} className="pillar-card reveal">
-                  <p className="card-step">{pillar.step}</p>
+                <article key={pillar.title} className="pillar-card reveal" role="listitem">
+                  <p className="card-step" aria-hidden="true">
+                    {pillar.step}
+                  </p>
                   <h3>{pillar.title}</h3>
                   <p>{pillar.description}</p>
                   <div className="tag-row">
@@ -359,9 +385,13 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="snapshot-grid reveal">
+            <div
+              className="snapshot-grid reveal"
+              role="list"
+              aria-label="Delivery and industry snapshots"
+            >
               {snapshotGroups.map((group) => (
-                <article key={group.title} className="snapshot-card">
+                <article key={group.title} className="snapshot-card" role="listitem">
                   <p className="card-label">{group.title}</p>
                   <div className="tag-row">
                     {group.items.map((item) => (
@@ -378,13 +408,16 @@ export default function Home() {
 
         <OperatingModel />
         <WorkGrid />
+        <VoicesSection />
         <CareerPanels />
 
-        <section id="contact" className="section-block">
+        <section id="contact" className="section-block" aria-labelledby="contact-title">
           <div className="section-shell contact-layout">
             <div className="contact-copy reveal">
               <p className="section-label">{contact.label}</p>
-              <h2 className="section-title">{contact.title}</h2>
+              <h2 id="contact-title" className="section-title">
+                {contact.title}
+              </h2>
               <p className="section-intro">{contact.intro}</p>
 
               <ul className="signal-list contact-focus-list">
