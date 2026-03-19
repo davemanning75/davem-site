@@ -82,7 +82,7 @@ export const siteCopy = {
     label: "Executive AI leadership",
     title: "I build AI operating models that move enterprises from ambition to governed production delivery.",
     intro:
-      "I architected Centrilogic's AI Factory and the COE, Landing Zone, and Agent Factory patterns behind it, then used those foundations to help teams deliver governed AI in regulated enterprise environments.",
+      "Architected Centrilogic's AI Factory and the COE, Landing Zone, and Agent Factory patterns behind it, then used those foundations to help teams deliver governed AI in regulated enterprise environments.",
     pullQuoteId: "lokesh-kumar-padmanaban",
     primaryCtaLabel: "Review leadership proof",
     secondaryCtaLabel: "Start a leadership conversation",
@@ -149,7 +149,7 @@ export const siteCopy = {
     label: "Career",
     title: "Leadership progression, not resume sprawl.",
     intro:
-      "The progression matters because it shows a steady increase in accountability for operating models, commercial outcomes, and team leadership, not just increasingly complex technical systems.",
+      "Progression matters because it shows a steady increase in accountability for operating models, commercial outcomes, and team leadership, not just increasingly complex technical systems.",
     viewScopeLabel: "View scope",
     responsibilitiesHeading: "Core responsibilities",
     signalsHeading: "Signals that still matter now",
@@ -222,23 +222,23 @@ export const leaderVoices: LeaderVoice[] = [
 export const heroSignals: HeroSignal[] = [
   {
     value: "20+ years",
-    label: "enterprise transformation",
-    detail: "Architecture, strategy, and delivery leadership",
+    label: "Enterprise Transformation",
+    detail: "Architecture, Strategy, and Delivery Leadership",
   },
   {
     value: "AI Factory",
-    label: "AI operating model architect",
-    detail: "COE, Landing Zone, and Agent Factory patterns",
+    label: "AI Operating Model Architect",
+    detail: "COE, Landing Zone, and Agent Factory Patterns",
   },
   {
     value: "3 director roles",
-    label: "leadership progression",
-    detail: "Architecture, consulting, and technical strategy",
+    label: "Leadership Progression",
+    detail: "Architecture, Consulting, and Technical Strategy",
   },
   {
     value: "Regulated + F500",
-    label: "trust environments",
-    detail: "Financial services, public sector, and enterprise delivery",
+    label: "Trust Environments",
+    detail: "Financial Services, Public Sector, and Enterprise Delivery",
   },
 ];
 
@@ -460,8 +460,9 @@ export const proofCases: ProofCase[] = [
       "Shifted the conversation from isolated pilots to operating capability",
     ],
     stack: [
-      "Azure OpenAI",
       "Azure AI Foundry",
+      "Azure OpenAI",
+      "Github Copilot",
       "Microsoft Fabric",
       "OneLake",
       "Governed pro-code delivery",
@@ -493,15 +494,15 @@ export const proofCases: ProofCase[] = [
       "Reduced manual effort for agents",
       "Improved auditability in a regulated environment",
     ],
-    stack: ["Genesys Cloud", "Salesforce", "Azure OpenAI", "Governed workflow integration"],
+    stack: ["Genesys Cloud", "Salesforce", "Github Copilot", "Governed workflow integration"],
   },
   {
     id: "knowledge-assistant",
     category: "Governed knowledge",
-    title: "GenAI Knowledge Assistant",
+    title: "Agentic AI Knowledge Assistant Avatar",
     headline: "Secure access to sensitive regulatory knowledge at enterprise scale.",
     summary:
-      "Delivered a secure, governed GenAI knowledge assistant with role-based access to regulatory content, reducing dependence on SMEs and accelerating compliance workflows.",
+      "Delivered a secure, governed Agentic AI knowledge assistant with role-based access to regulatory content, reducing dependence on SMEs and accelerating compliance workflows.",
     impact: [
       "Role-based access to sensitive content",
       "SME dependence reduced",
@@ -520,7 +521,7 @@ export const proofCases: ProofCase[] = [
       "Reduced reliance on manual expert intervention",
       "Managed compliance risk through governed architecture",
     ],
-    stack: ["GenAI retrieval", "Role-based access", "Governed content patterns"],
+    stack: ["Agentic Retrieval-Augmented Generation", "Role-based access", "Governed content patterns"],
   },
   {
     id: "rfp-automation",
@@ -528,11 +529,12 @@ export const proofCases: ProofCase[] = [
     title: "RFP Bid/No-Bid and Response Automation",
     headline: "Internal agents that increase response speed without losing judgment.",
     summary:
-      "Built internal Copilot agents that evaluate bid opportunities against real capabilities and draft compliant responses from an evolving repository of past RFPs and Q&A.",
+      "Built internal Copilot agents that evaluate bid opportunities against real capabilities and draft compliant responses from an evolving knowledge base.",
     impact: [
       "50-70% faster response cycles",
       "Stronger bid discipline",
-      "More consistent quality and brand tone",
+      "Reduced effort for proposal teams",
+      "Better quality and brand tone",
     ],
     leadership: [
       "Applied product thinking to internal commercial operations",
@@ -547,7 +549,7 @@ export const proofCases: ProofCase[] = [
       "Improved consistency and compliance in outputs",
       "Created leverage for presales and solution teams",
     ],
-    stack: ["Copilot agents", "Knowledge indexing", "Gap analysis", "Response generation"],
+    stack: ["Copilot agents", "Knowledge indexing", "Gap analysis", "Response & SOW generation"],
   },
   {
     id: "enterprise-roadmaps",
@@ -570,7 +572,7 @@ export const proofCases: ProofCase[] = [
       "Mapped tactical migration steps from current state to target state",
     ],
     outcomes: [
-      "Enabled large-scale cloud and infrastructure transformation planning",
+      "Enabled large-scale cloud and infrastructure transformation",
       "Linked roadmaps to business priorities and measurable value",
       "Supported major renewals, extensions, and strategic decision-making",
     ],
@@ -581,23 +583,23 @@ export const proofCases: ProofCase[] = [
 export const careerMetrics: CareerMetric[] = [
   {
     value: "20+ years",
-    label: "enterprise transformation and architecture leadership",
+    label: "Enterprise Transformation and Architecture Leadership",
   },
   {
     value: "3",
-    label: "director-level leadership roles",
+    label: "Director-level Leadership Roles",
   },
   {
     value: "$110M",
-    label: "portfolio value in IBM hosting leadership scope",
+    label: "Portfolio Value in IBM Hosting Leadership Scope",
   },
   {
     value: "180 / 800 / 5",
-    label: "applications, servers, and data centres supported",
+    label: "Applications, Servers, and Data Centres Supported",
   },
   {
     value: "20+ / 200+",
-    label: "architects led and delivery professionals influenced",
+    label: "Architects Led and Delivery Professionals Influenced",
   },
 ];
 
@@ -611,15 +613,15 @@ export const careerRoles: CareerRole[] = [
     scale:
       "Current role spans AI, cloud, and enterprise architecture with direct responsibility for reusable delivery models and team development.",
     bullets: [
-      "Architected and launched the AI Factory as a production and delivery model for agentic AI.",
+      "Architected and launched the AI Factory as a production and delivery model for Agentic AI.",
       "Designed the AI COE framework, AI Landing Zone, and AI Agent Factory on the Microsoft stack.",
-      "Delivered enterprise AI solutions including contact-centre automation and governed knowledge assistants.",
+      "Delivered enterprise AI solutions including contact-centre automation and agentic knowledge assistants.",
       "Works with account leadership and executives on proposals, SOWs, planning, and strategic client direction.",
     ],
     supportingSignals: [
       "Architecture team leadership across AI, cloud, and enterprise domains",
       "Executive translation of technical strategy into business action",
-      "Operational focus on shipping governed AI, not just demos",
+      "Operational focus on shipping governed, production-ready AI and AI managed services, not just demos",
     ],
     defaultOpen: true,
   },

@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@source not "../../.next/**/*";
+@source not "../../backup-before-next/**/*";
+@source not "../../.vercel/**/*";
 
 :root {
   --bg: #07111d;
