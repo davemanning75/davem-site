@@ -2,8 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import AnimatedHeading from "@/components/AnimatedHeading";
+import AnimatedSection from "@/components/AnimatedSection";
 import CareerPanels from "@/components/CareerPanels";
+import MeshGradient from "@/components/MeshGradient";
+import NetworkArt from "@/components/NetworkArt";
 import OperatingModel from "@/components/OperatingModel";
+import StatsStrip from "@/components/StatsStrip";
 import VoicesSection from "@/components/VoicesSection";
 import WorkGrid from "@/components/WorkGrid";
 import {
@@ -194,13 +199,18 @@ export default function Home() {
         return;
       }
 
+      const style = getComputedStyle(document.documentElement);
+      const r = style.getPropertyValue("--star-color-r").trim();
+      const g = style.getPropertyValue("--star-color-g").trim();
+      const b = style.getPropertyValue("--star-color-b").trim();
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach((star) => {
         star.a += star.speed;
         const alpha = 0.18 + 0.42 * Math.abs(Math.sin(star.a));
         ctx.beginPath();
         ctx.arc(star.x * canvas.width, star.y * canvas.height, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(120, 215, 240, ${alpha})`;
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         ctx.fill();
       });
       starsFrameId = requestAnimationFrame(drawStars);
@@ -259,15 +269,18 @@ export default function Home() {
 
       <main id="top" className="site-main">
         <section id="hero" className="hero-section" aria-labelledby="hero-title">
+          <MeshGradient />
           <div className="section-shell hero-shell">
             <div className="hero-copy">
-              <p className="section-label hero-label">{hero.label}</p>
-              <h1 id="hero-title" className="hero-title">
-                {hero.title}
+              <p className="section-label hero-label hero-reveal hero-reveal-1">{hero.label}</p>
+              <h1 id="hero-title" className="hero-headline hero-reveal hero-reveal-2">
+                I build{" "}
+                <span className="hero-headline-accent">AI operating models</span>
+                {" "}that move enterprises from ambition to governed production delivery.
               </h1>
-              <p className="hero-intro">{hero.intro}</p>
+              <p className="hero-intro hero-reveal hero-reveal-3">{hero.intro}</p>
 
-              <div className="hero-cta-row">
+              <div className="hero-cta-row hero-reveal hero-reveal-4">
                 <a className="btn-primary" href="#work">
                   {hero.primaryCtaLabel}
                 </a>
@@ -277,59 +290,24 @@ export default function Home() {
               </div>
 
               {heroPullQuote ? (
-                <figure className="hero-pull-quote reveal">
-                  {voices.heroQuoteLabel ? (
-                    <p className="card-label">{voices.heroQuoteLabel}</p>
-                  ) : null}
-                  <blockquote className="voice-quote">{heroPullQuote.quote}</blockquote>
-                  <figcaption className="voice-attribution">
-                    <span className="voice-identity">{heroPullQuote.name}, {heroPullQuote.title}</span>
+                <figure className="hero-quote-aside hero-reveal hero-reveal-5">
+                  <blockquote className="hero-quote-text">{heroPullQuote.quote}</blockquote>
+                  <figcaption className="hero-quote-cite">
+                    {heroPullQuote.name}, {heroPullQuote.title}
                   </figcaption>
                 </figure>
               ) : null}
-
-              <div
-                className="hero-signal-grid reveal"
-                role="list"
-                aria-label="Executive leadership signals"
-              >
-                {heroSignals.map((signal) => (
-                  <article key={signal.label} className="hero-signal-card" role="listitem">
-                    <div className="hero-signal-value">{signal.value}</div>
-                    <p className="hero-signal-label">{signal.label}</p>
-                    <p className="hero-signal-detail">{signal.detail}</p>
-                  </article>
-                ))}
-              </div>
-
-              <section className="hero-brief-card reveal" aria-labelledby="hero-brief-title">
-                <p className="card-label">{hero.briefLabel}</p>
-                <h2 id="hero-brief-title">{hero.briefTitle}</h2>
-                <ul className="signal-list compact-list">
-                  {heroMandate.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-
-                <div className="hero-metric-grid" role="list" aria-label="Current leadership metrics">
-                  {heroMetrics.map((metric) => (
-                    <div key={metric.label} className="hero-metric-item" role="listitem">
-                      <div className="hero-metric-value">{metric.value}</div>
-                      <p>{metric.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
             </div>
 
-            <div className="hero-aside reveal">
+            <div className="hero-visual hero-reveal hero-reveal-3">
+              <NetworkArt />
               <div className="hero-portrait-frame">
                 <Image
                   src="/headshot.png"
                   alt={hero.imageAlt}
                   fill
                   priority
-                  sizes="(max-width: 900px) 70vw, 28vw"
+                  sizes="(max-width: 900px) 50vw, 28vw"
                   className="hero-portrait"
                 />
               </div>
@@ -337,24 +315,26 @@ export default function Home() {
           </div>
         </section>
 
+        <StatsStrip signals={heroSignals} />
+
         <section id="about" className="section-block" aria-labelledby="about-title">
           <div className="section-shell">
-            <div className="section-heading reveal">
+            <AnimatedSection variant="fade-up" className="section-heading">
               <p className="section-label">{mandate.label}</p>
-              <h2 id="about-title" className="section-title">
+              <AnimatedHeading id="about-title" className="section-title">
                 {mandate.title}
-              </h2>
+              </AnimatedHeading>
               <p className="section-intro">{mandate.intro}</p>
-            </div>
+            </AnimatedSection>
 
             <div className="narrative-grid">
-              <div className="narrative-copy reveal">
+              <AnimatedSection variant="fade-up" delay={100} className="narrative-copy">
                 {mandate.narrative.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
-              </div>
+              </AnimatedSection>
 
-              <div className="narrative-note reveal" aria-labelledby="mandate-note-title">
+              <AnimatedSection variant="slide-right" delay={200} className="narrative-note" aria-labelledby="mandate-note-title">
                 <p className="card-label">{mandate.noteLabel}</p>
                 <h3 id="mandate-note-title">{mandate.noteTitle}</h3>
                 <p>{mandate.noteBody}</p>
@@ -363,12 +343,12 @@ export default function Home() {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </div>
+              </AnimatedSection>
             </div>
 
-            <div className="pillar-grid" role="list" aria-label="Leadership pillars">
+            <AnimatedSection variant="stagger-children" className="pillar-grid" role="list" aria-label="Leadership pillars">
               {leadershipPillars.map((pillar) => (
-                <article key={pillar.title} className="pillar-card reveal" role="listitem">
+                <article key={pillar.title} className="pillar-card" role="listitem">
                   <p className="card-step" aria-hidden="true">
                     {pillar.step}
                   </p>
@@ -383,10 +363,12 @@ export default function Home() {
                   </div>
                 </article>
               ))}
-            </div>
+            </AnimatedSection>
 
-            <div
-              className="snapshot-grid reveal"
+            <AnimatedSection
+              variant="fade-up"
+              delay={100}
+              className="snapshot-grid"
               role="list"
               aria-label="Delivery and industry snapshots"
             >
@@ -402,7 +384,7 @@ export default function Home() {
                   </div>
                 </article>
               ))}
-            </div>
+            </AnimatedSection>
           </div>
         </section>
 
@@ -413,11 +395,11 @@ export default function Home() {
 
         <section id="contact" className="section-block" aria-labelledby="contact-title">
           <div className="section-shell contact-layout">
-            <div className="contact-copy reveal">
+            <AnimatedSection variant="fade-up" className="contact-copy">
               <p className="section-label">{contact.label}</p>
-              <h2 id="contact-title" className="section-title">
+              <AnimatedHeading id="contact-title" className="section-title">
                 {contact.title}
-              </h2>
+              </AnimatedHeading>
               <p className="section-intro">{contact.intro}</p>
 
               <ul className="signal-list contact-focus-list">
@@ -433,9 +415,9 @@ export default function Home() {
               {status === "sent" && (
                 <div className="contact-thankyou">{contact.successMessage}</div>
               )}
-            </div>
+            </AnimatedSection>
 
-            <div className="contact-form-card reveal">
+            <AnimatedSection variant="slide-right" delay={150} className="contact-form-card">
               <p className="card-label">{contact.cardLabel}</p>
               <form className="contact-form" onSubmit={handleSubmit}>
                 <input type="text" name="hp" className="hp-field" tabIndex={-1} autoComplete="off" />
@@ -459,7 +441,7 @@ export default function Home() {
                   {status === "sending" ? <span className="spinner" /> : contact.submitLabel}
                 </button>
               </form>
-            </div>
+            </AnimatedSection>
           </div>
         </section>
 

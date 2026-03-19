@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Instrument_Sans, Syne } from "next/font/google";
+import { Fraunces, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import ThemeProvider from "@/components/ThemeProvider";
 
-const displayFont = Syne({
-  variable: "--font-display",
+const headingFont = Fraunces({
+  variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const bodyFont = Instrument_Sans({
+const bodyFont = Plus_Jakarta_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -60,10 +61,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
-        <Nav />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${headingFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
+        <ThemeProvider>
+          <Nav />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
