@@ -56,6 +56,9 @@ export default function AnimatedSection({
         return;
       }
 
+      // Use a lower threshold for tall stagger containers on mobile
+      const effectiveThreshold = variant === "stagger-children" ? Math.min(threshold, 0.05) : threshold;
+
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -65,13 +68,40 @@ export default function AnimatedSection({
             setVisible(false);
           }
         },
-        { threshold },
+        { threshold: effectiveThreshold, rootMargin: "100px 0px 100px 0px" },
       );
 
       observer.observe(node);
       observerRef.current = observer;
+
+      // Fallback: if JS hydrated after the user already scrolled past this
+      // element, the observer fires with isIntersecting=false and never
+      // triggers again. Detect this and show the content immediately.
+      const rect = node.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom >= 0) {
+        // Element is currently in the viewport — observer should handle it,
+        // but fire a safety check after one frame in case it doesn't.
+        requestAnimationFrame(() => {
+          if (!elRef.current) return;
+          const r = elRef.current.getBoundingClientRect();
+          if (r.top < window.innerHeight) {
+            setVisible(true);
+            if (once && observerRef.current) {
+              observerRef.current.disconnect();
+              observerRef.current = null;
+            }
+          }
+        });
+      } else if (rect.bottom < 0) {
+        // Already scrolled past — show immediately
+        setVisible(true);
+        if (once) {
+          observer.disconnect();
+          observerRef.current = null;
+        }
+      }
     },
-    [threshold, once],
+    [threshold, once, variant],
   );
 
   const variantClass = `anim-${variant}`;
