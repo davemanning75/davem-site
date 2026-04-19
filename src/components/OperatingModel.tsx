@@ -5,51 +5,56 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { operatingPhases, siteCopy } from "@/data/portfolio";
 
 type ConnectorCoord = { x1: number; y1: number; x2: number; y2: number };
+type Layout = { w: number; h: number; connectors: ConnectorCoord[] };
+
+const EMPTY_LAYOUT: Layout = { w: 0, h: 0, connectors: [] };
 
 export default function OperatingModel() {
-  const [activePhaseId, setActivePhaseId] = useState(operatingPhases[0].id);
-  const activePhase =
-    operatingPhases.find((phase) => phase.id === activePhaseId) ?? operatingPhases[0];
+  const [activePhase, setActivePhase] = useState(operatingPhases[0]);
   const { operatingModel } = siteCopy;
   const reduceMotion = useReducedMotion();
 
   const railRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [connectors, setConnectors] = useState<ConnectorCoord[]>([]);
-  const [railSize, setRailSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [layout, setLayout] = useState<Layout>(EMPTY_LAYOUT);
 
   useLayoutEffect(() => {
     const measure = () => {
       const rail = railRef.current;
       if (!rail) return;
       const railRect = rail.getBoundingClientRect();
-      setRailSize({ w: railRect.width, h: railRect.height });
-      const coords: ConnectorCoord[] = [];
+      const connectors: ConnectorCoord[] = [];
       for (let i = 0; i < nodeRefs.current.length - 1; i++) {
         const a = nodeRefs.current[i];
         const b = nodeRefs.current[i + 1];
         if (!a || !b) continue;
         const aRect = a.getBoundingClientRect();
         const bRect = b.getBoundingClientRect();
-        coords.push({
+        connectors.push({
           x1: (aRect.left + aRect.right) / 2 - railRect.left,
           y1: aRect.bottom - railRect.top,
           x2: (bRect.left + bRect.right) / 2 - railRect.left,
           y2: bRect.top - railRect.top,
         });
       }
-      setConnectors(coords);
+      setLayout({ w: railRect.width, h: railRect.height, connectors });
     };
     measure();
     const rail = railRef.current;
-    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
-    if (ro && rail) ro.observe(rail);
+    if (typeof ResizeObserver !== "undefined" && rail) {
+      const ro = new ResizeObserver(measure);
+      ro.observe(rail);
+      return () => ro.disconnect();
+    }
     window.addEventListener("resize", measure);
-    return () => {
-      ro?.disconnect();
-      window.removeEventListener("resize", measure);
-    };
+    return () => window.removeEventListener("resize", measure);
   }, []);
+
+  const signalGroups = [
+    { heading: operatingModel.executiveHeading, signals: activePhase.executiveSignals },
+    { heading: operatingModel.deliveryHeading, signals: activePhase.deliverySignals },
+    { heading: operatingModel.proofHeading, signals: activePhase.proofSignals },
+  ];
 
   return (
     <section
@@ -84,7 +89,7 @@ export default function OperatingModel() {
                   }}
                   type="button"
                   className={`phase-node${isActive ? " is-active" : ""}`}
-                  onClick={() => setActivePhaseId(phase.id)}
+                  onClick={() => setActivePhase(phase)}
                   role="tab"
                   aria-selected={isActive}
                   aria-controls={`phase-panel-${phase.id}`}
@@ -107,15 +112,15 @@ export default function OperatingModel() {
               );
             })}
 
-            {!reduceMotion && connectors.length > 0 && railSize.w > 0 && (
+            {!reduceMotion && layout.connectors.length > 0 && layout.w > 0 && (
               <svg
                 className="phase-connector"
                 aria-hidden="true"
-                width={railSize.w}
-                height={railSize.h}
-                viewBox={`0 0 ${railSize.w} ${railSize.h}`}
+                width={layout.w}
+                height={layout.h}
+                viewBox={`0 0 ${layout.w} ${layout.h}`}
               >
-                {connectors.map((c, i) => (
+                {layout.connectors.map((c, i) => (
                   <motion.path
                     key={i}
                     d={`M ${c.x1} ${c.y1} L ${c.x2} ${c.y2}`}
@@ -162,32 +167,16 @@ export default function OperatingModel() {
                   role="list"
                   aria-label="Operating model outcomes by audience"
                 >
-                  <div className="phase-card" role="listitem">
-                    <h4>{operatingModel.executiveHeading}</h4>
-                    <ul className="signal-list">
-                      {activePhase.executiveSignals.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="phase-card" role="listitem">
-                    <h4>{operatingModel.deliveryHeading}</h4>
-                    <ul className="signal-list">
-                      {activePhase.deliverySignals.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="phase-card" role="listitem">
-                    <h4>{operatingModel.proofHeading}</h4>
-                    <ul className="signal-list">
-                      {activePhase.proofSignals.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  {signalGroups.map((group) => (
+                    <div key={group.heading} className="phase-card" role="listitem">
+                      <h4>{group.heading}</h4>
+                      <ul className="signal-list">
+                        {group.signals.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             </AnimatePresence>
