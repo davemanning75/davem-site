@@ -73,6 +73,7 @@ export const siteCopy = {
       { href: "#about", label: "Mandate" },
       { href: "#services", label: "Operating Model" },
       { href: "/proof", label: "Proof" },
+      { href: "/perspectives", label: "Perspectives" },
       { href: "/career", label: "Career" },
       { href: "#contact", label: "Contact" },
     ],

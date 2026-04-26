@@ -2094,6 +2094,276 @@ canvas#stars {
   background: rgba(224, 155, 123, 0.2);
 }
 
+/* ── Perspectives index ── */
+.perspective-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 720px) {
+  .perspective-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.perspective-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.perspective-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.09);
+  border-color: var(--accent-secondary);
+}
+
+.perspective-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+.perspective-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.perspective-card-dek {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.perspective-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.perspective-card-cta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-secondary);
+  margin-top: 0.25rem;
+}
+
+.perspective-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* LinkedIn strip */
+.linkedin-strip {
+  padding: 3rem 0 5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.linkedin-strip-note {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* ── Perspectives essay page ── */
+.perspective-article {
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}
+
+.perspective-header {
+  padding-top: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  max-width: 780px;
+}
+
+.perspective-back {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 150ms ease;
+}
+
+.perspective-back:hover {
+  color: var(--accent-secondary);
+}
+
+.perspective-title {
+  font-family: var(--heading);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+}
+
+.perspective-dek {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+.perspective-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+.perspective-meta-sep {
+  opacity: 0.5;
+}
+
+.perspective-meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-left: 0.5rem;
+}
+
+/* Essay body prose */
+.perspective-prose {
+  max-width: 720px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.perspective-prose p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-primary);
+  margin: 0 0 1.4em;
+}
+
+.perspective-prose h2 {
+  font-family: var(--heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 2.5em 0 0.75em;
+  line-height: 1.3;
+}
+
+.perspective-prose h3 {
+  font-family: var(--heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 2em 0 0.6em;
+  line-height: 1.35;
+}
+
+.perspective-prose strong {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.perspective-prose em {
+  font-style: italic;
+}
+
+.perspective-prose a {
+  color: var(--accent-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.perspective-prose a:hover {
+  color: var(--accent-primary);
+}
+
+.perspective-prose ol,
+.perspective-prose ul {
+  margin: 0 0 1.4em;
+  padding-left: 1.5em;
+}
+
+.perspective-prose li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin-bottom: 0.5em;
+}
+
+.perspective-prose code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+}
+
+.perspective-prose blockquote {
+  border-left: 3px solid var(--accent-primary);
+  margin: 2em 0;
+  padding: 0.75em 1.25em;
+  background: var(--bg-secondary);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+/* Essay footer */
+.perspective-footer {
+  max-width: 720px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.perspective-footer-origin {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.perspective-footer-origin a {
+  color: var(--accent-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.perspective-footer-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.perspective-footer-cta p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 /* ── Print ── */
 @media print {
   .site-nav,

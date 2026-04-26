@@ -1,0 +1,142 @@
+---
+title: "How Do I Run AI Workloads When My Regulator Says the Data Can't Leave the Country?"
+dek: "Sovereign AI in regulated Canada is an architecture problem, not a procurement one. Here's the ground-level view from someone shipping it."
+slug: "ai-workloads-data-sovereignty-canada"
+date: "2026-04-26"
+originallyPublished: "2026-03-27"
+tags: ["sovereign AI", "regulated industries", "architecture", "Canada", "OSFI", "data residency", "Azure", "AWS Bedrock"]
+readingTime: 14
+linkedinUrl: "https://www.linkedin.com/pulse/how-do-i-run-ai-workloads-when-my-regulator-says-data-dave-manning-zt86c/"
+status: "published"
+---
+
+I keep ending up in the same conversation with Canadian executives. It usually opens with some version of: "We want to deploy AI. Our regulator says the data stays in Canada. Now what?"
+
+It's a fair question. It's also one most of the public conversation around AI is failing to answer clearly.
+
+Vendor keynotes talk about transformation. The compliance team talks about risk. The board wants both. The people in the middle, the architects and CIOs and VPs of IT, are left trying to reconcile two mandates that feel like they're on a collision course.
+
+I lead an architecture team that designs and delivers cloud and AI environments for regulated Canadian organizations. We aren't theorizing about what's possible. We're building what works today, inside the constraints that actually exist. This is the ground-level view, and the executive question I'd rather be asked.
+
+## "Data can't leave the country" is more complicated than it sounds
+
+The first thing executives need to understand is that "Canadian data residency" is not a single rule. It's a stack of overlapping obligations that vary by province, sector, and data classification.
+
+At the federal level, PIPEDA does not actually mandate that data stay in Canada. It requires organizations to inform individuals about cross-border transfers and obtain meaningful consent. Important, but it's the floor.
+
+The teeth come from the provinces and the sector regulators. Quebec's Law 25 imposes the strictest regime: any transfer of personal information outside the province requires a privacy impact assessment, and the destination jurisdiction must offer protection "essentially equivalent" to Quebec law. Penalties run up to $10 million or 2% of worldwide revenue. Not theoretical. Ontario's PHIPA is widely believed to mandate that personal health information stay in Canada, but the reality is more nuanced. PHIPA restricts unconsented disclosures to independent third parties outside the province, not the hosting of data by a cloud provider acting as an agent under contract. A hospital running an AI diagnostic model on Azure isn't "disclosing" data to Microsoft in the PHIPA sense, provided the right contractual safeguards are in place. That distinction opens architectural options many healthcare organizations assume are off the table. Alberta's PIPA adds another layer.
+
+OSFI's Guideline B-13 (Technology and Cyber Risk Management) is often cited as requiring in-country processing, but it's principles-based, not a geographic embargo. It requires rigorous oversight of third parties, incident reporting, and risk documentation. Many financial institutions localize because it simplifies their risk posture, but B-13 itself doesn't forbid foreign processing if the controls are in place. The catch: if you process data outside Canada, you own the burden of proving you've managed every associated risk.
+
+OSFI also finalized Guideline E-23 (Model Risk Management) in late 2025, with a mandatory effective date of May 1, 2027. This is the one that changes the game for AI. E-23 explicitly covers AI and machine learning systems and requires enterprise-wide model identification, risk assessment, deployment controls, continuous monitoring, and formal decommissioning. If you're in financial services, your AI models will need the same governance rigor as your credit risk models. Not guidance. Regulatory expectation, hard deadline.
+
+When a regulator says "the data stays here," the meaning depends on who your regulator is, what province you're in, and what kind of data you're handling. Most organizations underestimate this complexity until they're deep into an AI initiative and a procurement review is asking questions no one prepared for.
+
+## PBMM: the standard that gates public sector, and increasingly everything else
+
+If you work with the federal government, you already know Protected B, Medium Integrity, Medium Availability. PBMM is the cloud security standard defined in ITSG-33 and evolved into the CCCS Medium Cloud Profile. It's the bar your environment has to clear to handle non-classified government information.
+
+What's changed is that PBMM has stopped being a public sector concern. It now shows up in provincial procurement, in RFPs from regulated private sector organizations, and as a proxy standard for "serious about security" in industries that don't have their own cloud certification framework.
+
+The major cloud providers have all invested. Azure was one of the first to qualify. AWS reports 162 services assessed against CCCS Medium requirements as of late 2025. Google Cloud is approved for Protected B Medium and High Value Asset workloads. IBM maintains PBMM in their Toronto and Montreal facilities.
+
+Here's the gap that matters: PBMM certification for AI-specific services (Azure OpenAI, Cognitive Services, the inference endpoints you actually need) is not explicitly published in the same way that general IaaS and PaaS services are. General cloud PBMM is not the same as AI service PBMM. This is where deals stall and projects get delayed. If you're building an AI workload for a regulated environment, you need to know exactly which services have been formally assessed and which are running on assumption.
+
+## What you can actually run today
+
+Let me be direct about the current state, because the market needs more honesty here and less aspiration.
+
+**Azure OpenAI** offers models in Canada Central and Canada East, but availability varies sharply by deployment type. Established models like GPT-4 and GPT-4o support standard regional deployments with strict residency: both inference and data processing happen exclusively in Canadian data centres. Newer frontier models (GPT-4.1 series, advanced reasoning models) are typically unavailable for standard regional deployment in Canada Central; specific availability shifts month to month, so verify against the current Azure model-region matrix before architecting. To access frontier models when in-region isn't an option, architects are pushed toward "Global Standard" or "Data Zone" deployment types, which dynamically route inference across Azure's global infrastructure, fundamentally breaking strict residency. You can run production AI in-region today. The most capable models may force you to choose between cognitive performance and geographic isolation.
+
+**AWS Bedrock** offers foundation model access from ca-central-1 (Toronto) and ca-west-1 (Calgary), including Anthropic's Claude models. The nuance: AWS achieves this through cross-region inference. Your data at rest (logs, knowledge bases, stored configurations) stays in Canada, but the inference processing itself may route to US regions. For workloads where the regulator cares about where compute happens, not just where data sits, this matters. You need to know whether your compliance framework draws the line at data residency or at processing residency. They are different lines.
+
+**Anthropic's Claude API** (direct, not via a cloud provider) currently exposes only "us" and "global" inference geos. There is no Canadian residency option, and no formal EU residency on the direct API either; the EU pathway for Claude actually runs through AWS Bedrock or Google Vertex AI rather than Anthropic directly. Anthropic has signaled additional inference geos are on the roadmap, but for organizations that need Claude's capabilities within Canadian borders today, the path runs through Bedrock, with the cross-region caveat above.
+
+**Google Vertex AI** offers regional endpoints with a 10% pricing premium over global endpoints, providing guaranteed routing through specific geographic regions for Claude and Gemini. Toronto-region availability for specific Claude SKUs shifts as Google rolls out new model tiers, so verify against Google Cloud's current Vertex AI Generative AI locations page for the model and region you actually need.
+
+Honest summary: you can run production AI inference in Canada today, with real residency guarantees, if you choose the right platform, the right models, and the right deployment configuration. But the most capable frontier models often require global routing that breaks strict residency, and the managed orchestration services are either deprecated or unavailable in-country. The gap is narrowing fast. If you're making architecture decisions right now, make them based on what's certified and available, not what's on a roadmap.
+
+## The architecture decisions that actually matter
+
+These are the conversations that separate a successful sovereign AI deployment from one that stalls in procurement review.
+
+**Region selection is a governance decision, not a performance decision.** Lock Canada Central as your AI compute region, document the rationale, make it auditable. Sounds obvious. I've seen organizations leave region selection to a developer's default and scramble to explain it to an auditor six months later.
+
+**Classify your data before you select your models.** Know what's Protected B, sensitive PI, proprietary-but-unregulated, and public. Map each classification to the services certified to handle it. Most organizations start with the model and work backward to the data. That's the wrong order for regulated environments.
+
+**"Available in Canada" means different things on different platforms.** Azure OpenAI in Canada Central runs inference in-region for supported models, but frontier models may require Global routing that breaks residency. Bedrock cross-region inference from ca-central-1 keeps data at rest in Canada but may process inference in the US. Anthropic's direct API runs entirely in the US. Not equivalent from a compliance perspective, even though all three give you access to powerful models. Your architecture has to reflect the actual data flow, not the marketing summary.
+
+**Stay current on platform deprecations.** If you've been planning agent-style orchestration around Azure OpenAI's Assistants API, stop. Microsoft has officially deprecated it, with complete retirement scheduled for August 26, 2026, replaced by the Microsoft Foundry Agents Service. Any organization building custom middleware while waiting for Assistants to land in Canada is investing in a dead end. The broader point: the AI platform space moves fast enough to invalidate architectural assumptions within months. Build modularly, watch the deprecation notices, don't bet your architecture on a single service.
+
+**Contractual data residency is not the same as technical data residency.** Azure's contractual commitments are strong, but your architecture has to enforce them. Private Endpoints, Azure Policy definitions that deny non-Canadian resource creation, network security groups, diagnostic settings that keep logs in-region. The contract tells your regulator you intend to keep data in Canada. Your technical controls prove you did.
+
+A reader of the original asked the right follow-up: when everything is split by jurisdiction, how do teams keep track of what's actually running where? Track it manually and you'll fail an audit. Don't track it manually at all. Enforce it automatically: Policy-as-Code, deny-by-default Azure Policies on region and SKU, deployment pipelines that fail closed if a non-Canadian resource is requested. The integrity of the residency claim moves from a spreadsheet to a control plane.
+
+**Treat model risk management as a first-class governance discipline.** Specific to financial services today, heading everywhere. OSFI E-23 takes full effect May 1, 2027, and it covers AI/ML explicitly. Model identification, risk assessment, deployment controls, performance monitoring, bias testing, explainability, formal decommissioning. Build these in from day one. Retrofitting under audit pressure is far more expensive than doing it right up front.
+
+The underlying principle: sovereign AI is not a product you buy. It's an architecture you design. The decisions that matter most are the unglamorous ones: region locks, data classification, policy enforcement, model governance.
+
+## Counter-arguments worth taking seriously
+
+When I've made this case, four objections come back. Each is partially right.
+
+**"Just use a Canadian-only provider."** The Cohere argument. Canadian-founded, models on Azure Canada, no US-jurisdiction headache. Real strength for some workloads. But a single-vendor sovereign-origin strategy hits two walls: capability (frontier reasoning models are still concentrated at OpenAI and Anthropic) and lock-in (you've traded multi-cloud optionality for sovereignty optics). Most regulated organizations end up with a portfolio: Cohere where its models are competitive, Azure OpenAI for breadth, Bedrock for Claude, with the platform discipline to switch. Sovereignty by composition beats sovereignty by mono-vendor.
+
+**"Wait for regulatory clarity."** Bill C-27 and AIDA died when Parliament was prorogued in January 2025. In June 2025, Minister Solomon confirmed C-27 wouldn't return in its previous form and AIDA is off the table as drafted; only fragments may survive in a new framework. Why not wait? Because the sector regulators are not waiting. OSFI E-23 has a hard date. Quebec Law 25 is enforced. Health Canada and Transport Canada are issuing guidance with practical regulatory weight. Waiting for a horizontal AI law means deploying without the operational learning your competitors are building right now. The organizations that will lead this wave are not the ones who waited for perfection.
+
+**"On-prem is the only true sovereignty."** True for the highest-sensitivity workloads (national security, certain classified environments). For the vast majority of regulated commercial AI, on-prem trades sovereignty for capability gap that gets larger every quarter. You can't run frontier models on a rack in your data centre. The realistic answer is hybrid: on-prem for the narrow class of workloads where physical control is non-negotiable, sovereign cloud regions for everything else, with the architecture to keep the line clear.
+
+**"The CLOUD Act makes this all moot."** Not moot, but real. I'll address it directly in the next section.
+
+A reader pushed me on a related dimension I hadn't named in the original: data minimization as architectural sovereignty. The framing was *asymmetric insight exchange*, abstracting away from individual records into personas with sufficient k-anonymity that the underlying identity never leaves your domain even when the inference does. That's the right additional discipline. Sovereignty isn't only about *where* the data sits. It's also about *how much* of it ever needs to leave the boundary at all. The architectural answer is to push transformation, anonymization, and aggregation as close to the source as possible, then let inference act on the abstracted form. Cheaper to govern, easier to audit, harder to compromise.
+
+## A decision framework you can run on Monday
+
+If you're an executive trying to move on this, here's the gating sequence I use with clients before any platform decision gets made.
+
+1. **Classify your data first.** Protected B, sensitive PI, regulated PHI, proprietary-but-unregulated, public. Get this decided before anyone scopes a model.
+2. **Identify every regulator with a claim on it.** Federal (PIPEDA), provincial (Law 25, PHIPA, PIPA), sectoral (OSFI B-13/E-23, Health Canada, Transport Canada, CSE for federal). Map data class × regulator × required compliance posture.
+3. **Decide where the line is.** Data residency only, or data residency *and* processing residency? Most regulators imply but don't explicitly require the latter. Get an opinion in writing before you architect.
+4. **Pick the platform that matches actual data flow, not marketing residency.** Azure Canada Central with standard deployment, Bedrock ca-central-1 with cross-region awareness, Vertex AI Toronto with regional endpoints, Cohere via Azure. Each is a different residency posture. Choose deliberately.
+5. **Verify the specific service has the cert you need, not the parent platform.** Azure has PBMM. That doesn't mean every Azure OpenAI feature is in scope. Get the assessment letter for the specific services your workload depends on.
+6. **Prove compliance via technical controls, not just contracts.** Private Endpoints, deny-by-default region policies, customer-managed keys, in-region logging, network isolation. The contract is the intent. The controls are the evidence.
+7. **Build model governance from day one.** OSFI E-23 hits May 1, 2027. Model inventory, risk tiers, deployment gates, monitoring, decommissioning. If you're in financial services and you wait, you'll be retrofitting under audit pressure.
+8. **Plan for deprecation.** Build modular. Don't tie your architecture to a single managed orchestration service. Watch the platform notices.
+
+That's the gate. If a vendor pitch can't survive those eight questions, the project isn't ready for procurement.
+
+## The CLOUD Act, the elephant in the room
+
+I'd be doing a disservice if I didn't address this directly, because every informed client raises it and too many advisors dodge it.
+
+The U.S. CLOUD Act gives American authorities the legal right to compel U.S.-headquartered companies to produce data in their custody, regardless of where that data is physically stored. Microsoft, AWS, Google, and Anthropic are all U.S.-headquartered. Your data can be sitting in a Toronto data centre, running on Azure, with a Canadian residency contract, and the U.S. government can still, in principle, issue a lawful demand for it.
+
+Microsoft has responded with a five-point Digital Sovereignty Plan: a Threat Intelligence Hub in Ottawa, in-country data processing for Copilot interactions, confidential computing in Azure with Azure Key Vault available to Canadian customers, a Cohere partnership integrating Canadian-built LLMs into the Azure ecosystem, and a cloud continuity commitment to protect Canadian government access even against international political pressures. AWS and Google have made similar commitments. These are meaningful, but not absolute.
+
+Here's what honest advisors tell their clients: the combination of Canadian residency, encryption at rest and in transit, customer-managed keys, access controls, and contractual commitments significantly reduces the practical risk. For the vast majority of regulated workloads, that combination meets the bar Canadian regulators are actually setting. For a narrow set of the highest-sensitivity workloads (national security, certain classified environments), it may not, and those organizations may need sovereign cloud options or on-prem deployments.
+
+The pragmatic position: don't pretend the CLOUD Act doesn't exist. Don't pretend it blocks everything either. Understand where your data sits on the sensitivity spectrum, and architect to the actual risk, not the headline.
+
+## What the next 12 months look like
+
+The investment wave is real. Microsoft's $19 billion Canadian commitment (with $7.5 billion specifically over the next two years). The federal government's $2.4 billion Sovereign AI Compute Strategy. The AI Compute Challenge with up to $700 million for sovereign 100+ megawatt data centres. $42.5 million to the University of Toronto for AI compute infrastructure. Funded and in motion.
+
+What the money doesn't solve: Canada still has no comprehensive AI legislation. Bill C-27 and AIDA died when Parliament was prorogued in January 2025. A successor is expected. Until it lands, sector regulators are filling the gap with guidance that carries practical regulatory weight without a horizontal law.
+
+The platforms are converging on Canada too. Anthropic is expanding regional residency. AWS is broadening Bedrock's in-region capabilities. Microsoft is pouring infrastructure into Canadian capacity online in H2 2026. Cohere keeps adding sovereign-origin options on Azure.
+
+The takeaway: infrastructure is coming, the framework is converging, service gaps are closing. But don't architect for next year's availability. Build on what's certified now. Design governance so it can absorb new services and new regulations as they arrive. The organizations moving now, with proper controls, will have 12 to 18 months of operational learning their competitors won't.
+
+Waiting for perfect regulatory clarity before deploying AI in regulated Canada means waiting indefinitely. The organizations that lead this wave won't be the ones who waited for perfection. They'll be the ones who moved with governance.
+
+## Reframing the question
+
+The question I started with ("How do I run AI workloads when my regulator says the data can't leave the country?") is actually the wrong one, or at least incomplete.
+
+The better question is: how do I architect AI workloads that satisfy my regulator, my board, and my users, simultaneously?
+
+The answer isn't a single product or a single certification. It's an architecture designed with intention: the right region, the right data classifications, the right technical controls, the right governance model, and an honest assessment of what's certified today versus what's on someone's roadmap.
+
+The infrastructure investment is happening. The regulatory frameworks are converging. The AI services are landing in Canadian regions. The window for competitive advantage is open right now, for organizations willing to build thoughtfully rather than wait for someone else to make it easy.
+
+I'd like to hear what you're seeing in your own environments. If you're navigating sovereign AI in a regulated Canadian industry, what's working? Where are you stuck? The more practitioners share what they're learning, the faster this market matures for everyone.
