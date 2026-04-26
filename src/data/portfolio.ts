@@ -524,37 +524,10 @@ export const proofCases: ProofCase[] = [
     stack: ["Agentic Retrieval-Augmented Generation", "Role-based access", "Governed content patterns"],
   },
   {
-    id: "rfp-automation",
-    category: "Workforce AI",
-    title: "RFP Bid/No-Bid and Response Automation",
-    headline: "Internal agents that increase response speed without losing judgment.",
-    summary:
-      "Built internal Copilot agents that evaluate bid opportunities against real capabilities and draft compliant responses from an evolving knowledge base.",
-    impact: [
-      "50-70% faster response cycles",
-      "Stronger bid discipline",
-      "Reduced effort for proposal teams",
-      "Better quality and brand tone",
-    ],
-    leadership: [
-      "Applied product thinking to internal commercial operations",
-      "Connected capability reality, proposal quality, and executive decision-making",
-    ],
-    architecture: [
-      "Knowledge-backed automation across historical RFP content and response assets",
-      "Draft generation paired with gap analysis and recommendation logic",
-    ],
-    outcomes: [
-      "Accelerated response velocity",
-      "Improved consistency and compliance in outputs",
-      "Created leverage for presales and solution teams",
-    ],
-    stack: ["Copilot agents", "Knowledge indexing", "Gap analysis", "Response & SOW generation"],
-  },
-  {
     id: "workforce-ai-sales-coach",
     category: "Workforce AI",
     title: "Sales AI Coach and Enterprise Rollout",
+    featured: true,
     headline:
       "On-demand AI coaching for the full sales org, shipped in 24 hours — alongside the Claude Enterprise deployment and governance program that made it possible.",
     summary:
@@ -598,6 +571,34 @@ export const proofCases: ProofCase[] = [
       "AI governance",
       "Claude Partner Network",
     ],
+  },
+  {
+    id: "rfp-automation",
+    category: "Commercial acceleration",
+    title: "RFP Bid/No-Bid and Response Automation",
+    headline: "Internal agents that increase response speed without losing judgment.",
+    summary:
+      "Built internal Copilot agents that evaluate bid opportunities against real capabilities and draft compliant responses from an evolving knowledge base.",
+    impact: [
+      "50-70% faster response cycles",
+      "Stronger bid discipline",
+      "Reduced effort for proposal teams",
+      "Better quality and brand tone",
+    ],
+    leadership: [
+      "Applied product thinking to internal commercial operations",
+      "Connected capability reality, proposal quality, and executive decision-making",
+    ],
+    architecture: [
+      "Knowledge-backed automation across historical RFP content and response assets",
+      "Draft generation paired with gap analysis and recommendation logic",
+    ],
+    outcomes: [
+      "Accelerated response velocity",
+      "Improved consistency and compliance in outputs",
+      "Created leverage for presales and solution teams",
+    ],
+    stack: ["Copilot agents", "Knowledge indexing", "Gap analysis", "Response & SOW generation"],
   },
   {
     id: "enterprise-roadmaps",
