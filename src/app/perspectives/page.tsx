@@ -23,8 +23,8 @@ export default function PerspectivesPage() {
           <div className="section-shell">
             <AnimatedSection variant="fade-up" className="section-heading">
               <p className="section-label">Perspectives</p>
-              <AnimatedHeading id="perspectives-title" className="section-title">
-                Working theses on AI in regulated enterprises.
+              <AnimatedHeading id="perspectives-title" className="section-title perspectives-index-title">
+                Working theses on AI in enterprises.
               </AnimatedHeading>
               <p className="section-intro">
                 Long-form takes on the architecture, governance, and operating-model questions that

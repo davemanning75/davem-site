@@ -2095,6 +2095,11 @@ canvas#stars {
 }
 
 /* ── Perspectives index ── */
+.perspectives-index-title {
+  font-size: clamp(1.5rem, 3.2vw, 2.6rem);
+}
+
+
 .perspective-grid {
   display: grid;
   grid-template-columns: 1fr;
