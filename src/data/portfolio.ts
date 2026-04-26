@@ -529,9 +529,9 @@ export const proofCases: ProofCase[] = [
     title: "Sales AI Coach and Enterprise Rollout",
     featured: true,
     headline:
-      "On-demand AI coaching for the full sales org, shipped in 24 hours — alongside the Claude Enterprise deployment and governance program that made it possible.",
+      "On-demand AI coaching for the full sales org, shipped in 24 hours, alongside the Claude Enterprise deployment and governance program that made it possible.",
     summary:
-      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training — he shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in CL's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through ELT approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path — building the internal AI operating model CentriLogic sells to clients.",
+      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training. He shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in the company's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through Executive approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path, building the internal AI operating model CentriLogic sells to clients.",
     impact: [
       "AI sales coach deployed to 25+ sellers in under 24 hours",
       "Claude Enterprise approved and governed through a formal AI AUP",
