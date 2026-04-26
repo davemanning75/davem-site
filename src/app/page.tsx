@@ -4,13 +4,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import AnimatedHeading from "@/components/AnimatedHeading";
 import AnimatedSection from "@/components/AnimatedSection";
-import CareerPanels from "@/components/CareerPanels";
 import MeshGradient from "@/components/MeshGradient";
 import NetworkArt from "@/components/NetworkArt";
 import OperatingModel from "@/components/OperatingModel";
 import PageBackground from "@/components/PageBackground";
 import StatsStrip from "@/components/StatsStrip";
-import VoicesSection from "@/components/VoicesSection";
 import {
   contactFocusAreas,
   heroMandate,
@@ -25,7 +23,7 @@ import {
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [validationError, setValidationError] = useState<string | null>(null);
-  const { contact, footer, hero, mandate, voices } = siteCopy;
+  const { contact, footer, hero, mandate } = siteCopy;
   const heroPullQuote =
     leaderVoices.find((voice) => voice.id === hero.pullQuoteId) ?? leaderVoices[0];
 
@@ -211,8 +209,6 @@ export default function Home() {
         </section>
 
         <OperatingModel />
-        <VoicesSection />
-        <CareerPanels />
 
         <section id="contact" className="section-block" aria-labelledby="contact-title">
           <div className="section-shell contact-layout">

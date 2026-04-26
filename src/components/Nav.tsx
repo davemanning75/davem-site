@@ -56,13 +56,17 @@ export default function Nav() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  // On sub-pages, hash links must be root-relative (/#about not #about)
+  const toRootHref = (href: string) =>
+    href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
+
   return (
     <nav
       ref={navRef}
       className={`site-nav${scrolled ? " nav-scrolled" : ""}`}
       aria-label="Primary"
     >
-      <a className="nav-logo" href="#top">
+      <a className="nav-logo" href={toRootHref("#top")}>
         {navigation.brand}
       </a>
 
@@ -81,7 +85,7 @@ export default function Nav() {
           ) : (
             <a
               key={link.href}
-              href={link.href}
+              href={toRootHref(link.href)}
               className={`nav-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
               role="listitem"
             >
@@ -93,7 +97,7 @@ export default function Nav() {
 
       <div className="nav-actions">
         <ThemeToggle />
-        <a className="nav-cta" href="#contact">
+        <a className="nav-cta" href={toRootHref("#contact")}>
           {navigation.ctaLabel}
         </a>
         {/* Hamburger button (mobile only) */}
@@ -129,7 +133,7 @@ export default function Nav() {
           ) : (
             <a
               key={link.href}
-              href={link.href}
+              href={toRootHref(link.href)}
               className={`nav-drawer-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
               onClick={closeMenu}
             >
@@ -137,7 +141,7 @@ export default function Nav() {
             </a>
           ),
         )}
-        <a className="nav-cta nav-drawer-cta" href="#contact" onClick={closeMenu}>
+        <a className="nav-cta nav-drawer-cta" href={toRootHref("#contact")} onClick={closeMenu}>
           {navigation.ctaLabel}
         </a>
       </div>
