@@ -1,13 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { siteCopy } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
 
-const SECTION_IDS = siteCopy.navigation.links.map((l) => l.href.replace("#", ""));
+const SECTION_IDS = siteCopy.navigation.links
+  .filter((l) => l.href.startsWith("#"))
+  .map((l) => l.href.replace("#", ""));
 
 export default function Nav() {
   const { navigation } = siteCopy;
+  const pathname = usePathname();
   const [activeId, setActiveId] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -63,16 +68,27 @@ export default function Nav() {
 
       {/* Desktop links */}
       <div className="nav-links" role="list">
-        {navigation.links.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className={`nav-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
-            role="listitem"
-          >
-            {link.label}
-          </a>
-        ))}
+        {navigation.links.map((link) =>
+          link.href.startsWith("/") ? (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`nav-link${pathname === link.href ? " nav-link-active" : ""}`}
+              role="listitem"
+            >
+              {link.label}
+            </Link>
+          ) : (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`nav-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
+              role="listitem"
+            >
+              {link.label}
+            </a>
+          ),
+        )}
       </div>
 
       <div className="nav-actions">
@@ -100,16 +116,27 @@ export default function Nav() {
         aria-hidden="true"
       />
       <div className={`nav-drawer${menuOpen ? " nav-drawer-open" : ""}`}>
-        {navigation.links.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className={`nav-drawer-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
-            onClick={closeMenu}
-          >
-            {link.label}
-          </a>
-        ))}
+        {navigation.links.map((link) =>
+          link.href.startsWith("/") ? (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`nav-drawer-link${pathname === link.href ? " nav-link-active" : ""}`}
+              onClick={closeMenu}
+            >
+              {link.label}
+            </Link>
+          ) : (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`nav-drawer-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
+              onClick={closeMenu}
+            >
+              {link.label}
+            </a>
+          ),
+        )}
         <a className="nav-cta nav-drawer-cta" href="#contact" onClick={closeMenu}>
           {navigation.ctaLabel}
         </a>
