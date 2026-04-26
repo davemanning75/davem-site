@@ -525,7 +525,7 @@ export const proofCases: ProofCase[] = [
   },
   {
     id: "rfp-automation",
-    category: "Commercial acceleration",
+    category: "Workforce AI",
     title: "RFP Bid/No-Bid and Response Automation",
     headline: "Internal agents that increase response speed without losing judgment.",
     summary:
@@ -550,6 +550,54 @@ export const proofCases: ProofCase[] = [
       "Created leverage for presales and solution teams",
     ],
     stack: ["Copilot agents", "Knowledge indexing", "Gap analysis", "Response & SOW generation"],
+  },
+  {
+    id: "workforce-ai-sales-coach",
+    category: "Workforce AI",
+    title: "Sales AI Coach and Enterprise Rollout",
+    headline:
+      "On-demand AI coaching for the full sales org, shipped in 24 hours — alongside the Claude Enterprise deployment and governance program that made it possible.",
+    summary:
+      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training — he shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in CL's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through ELT approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path — building the internal AI operating model CentriLogic sells to clients.",
+    impact: [
+      "AI sales coach deployed to 25+ sellers in under 24 hours",
+      "Claude Enterprise approved and governed through a formal AI AUP",
+      "Internal AI adoption model mirrors the pattern CL architects for clients",
+    ],
+    leadership: [
+      "Identified the sales team's AI fluency gap and designed a coaching system rather than a training program — on-demand, personalized, and grounded in real CL proof points",
+      "Built the Claude Enterprise business case for a fast executive yes, backed by CEO-level commitment to CentriLogic operating as a frontier AI firm",
+      "Authored the company's AI Acceptable Use Policy to govern the deployment — the same governance pattern applied to client AI COE engagements",
+      "Completed the Claude Partner Network certification path (4 required courses + 2 extras) and positioned CentriLogic for formal partner status",
+      "Applied the same internal AI discipline to CentriLogic's own operating model that the firm architects for external clients",
+    ],
+    architecture: [
+      "4-mode coaching framework surfaced as Copilot suggested prompts: Quick Lookup, Quiz Me, Pre-Call Coach, and Role-Play / Objection Drill",
+      "Persistent per-rep fluency file — a markdown memory layer tracking mastery across 18 AI topics and all 6 core objection types, carried over from a personal architect coaching agent Dave built for himself",
+      "Knowledge base grounded in CL's AI Factory deck, Sales Content Library, Account Document Library, and Slavic case study materials",
+      "Case study matching framework covering 6 client industry profiles with matched proof points and outcomes",
+      "Production prompt delivered at 5,283 characters — purpose-built under Copilot Agent Builder's 8,000-character hard cap",
+      "Built in Claude Cowork, ported to Copilot Agent Builder for org-wide deployment on the M365 surface sellers already use",
+      "Claude pilot: 10 technical early adopters expanded to 35, with full Enterprise rollout planned",
+    ],
+    outcomes: [
+      "Sales team equipped to handle 6 core AI objection types — budget, readiness, ROI, Microsoft vs. Claude positioning, differentiation, and industry fit — with coached, case-study-backed responses",
+      "Reps generate structured pre-call briefs with matched case studies, discovery questions, and anticipated objections in seconds rather than hours",
+      "Monday need identified, Tuesday in use — a 24-hour deployment cycle that itself demonstrates the delivery model CentriLogic offers clients",
+      "Claude Enterprise deployed with executive approval and a governance policy — a governed internal platform, not shadow IT",
+      "Internal AI operating model mirrors the client pattern: identify the gap, deploy with structure, govern it, enable the team, iterate",
+    ],
+    stack: [
+      "Copilot Agent Builder",
+      "Claude Enterprise",
+      "Microsoft Copilot",
+      "AI AUP",
+      "Knowledge grounding",
+      "Prompt engineering",
+      "Fluency memory system",
+      "AI governance",
+      "Claude Partner Network",
+    ],
   },
   {
     id: "enterprise-roadmaps",
