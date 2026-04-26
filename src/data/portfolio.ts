@@ -547,9 +547,8 @@ export const proofCases: ProofCase[] = [
     architecture: [
       "4-mode coaching framework surfaced as Copilot suggested prompts: Quick Lookup, Quiz Me, Pre-Call Coach, and Role-Play / Objection Drill",
       "Persistent per-rep fluency file, a markdown memory layer tracking each rep's progress across 18 AI topics and all 6 core objection types. Pattern carried over from a personal coaching agent Dave built for himself.",
-      "Knowledge base grounded in CentriLogic's AI Factory deck, Sales Content Library, Account Document Library, and Slavic case study materials",
+      "Knowledge base grounded in CentriLogic's AI Factory materials, Sales Content, and Client case study materials",
       "Case study matching framework covering 6 client industry profiles with matched proof points and outcomes",
-      "Production prompt at 5,283 characters, built to stay within Copilot Agent Builder's 8,000-character hard cap",
       "Built in Claude Cowork, ported to Copilot Agent Builder for org-wide deployment on the M365 surface sellers already use",
       "Claude pilot: 10 technical early adopters expanded to 35, with full Enterprise rollout planned",
     ],
