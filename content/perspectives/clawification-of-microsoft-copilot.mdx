@@ -1,0 +1,109 @@
+---
+title: "The Clawification of Microsoft Copilot"
+dek: "Microsoft's Frontier Suite, Anthropic's Cowork Dispatch, and NVIDIA's NemoClaw all point at the same shift: AI as coworker, not chatbot. Here's what that signal means for the M365 stack."
+slug: "clawification-of-microsoft-copilot"
+date: "2026-04-26"
+originallyPublished: "2026-03-20"
+tags: ["agentic AI", "Microsoft Copilot", "M365", "Cowork", "future of work", "enterprise architecture"]
+readingTime: 7
+linkedinUrl: "https://www.linkedin.com/pulse/inevitable-clawification-microsoft-copilot-dave-manning-nqtqc/"
+status: "published"
+---
+
+Microsoft's announcement on March 9, 2026 wasn't another Copilot sidebar update. The Frontier Suite landed with a different posture: AI as coworker, not chatbot.
+
+Read between the lines and the message is unusually clear. The market, specifically the power users, has been signaling for a year that we don't want a chatbot that summarizes emails. We want a thinking partner that shares our context, manages our artifacts, and holds the state of a complex project. Microsoft is now formally embracing what Claude Cowork demonstrated in production: shared context, artifact ownership, project-state retention.
+
+That's the shift. Chat assumes you do all the thinking. Cowork assumes the model does some of it with you, holds what you can't hold in your head, and stays present across the work.
+
+Session-bound Copilot is the constraint nobody talked about. You start a chat, you get help with the thing in front of you, you close the tab, and the model forgets. That works for "rewrite this email in a friendlier tone." It breaks the moment your work spans more than one tab, more than one document, more than one session. The actual work an architect or analyst does runs over days and weeks, not minutes. The Cowork shift is Microsoft accepting that productivity AI has to hold state the way a colleague does: what we discussed last week, the open threads, the artifacts in flight, the decisions already made and why.
+
+The execution gap is what worries me. Building a Cowork-style UI is the easy part. Building the cognitive reasoning layer underneath, with 200k+ token retention, reasoning across disparate documents without hallucination, and persistent memory across sessions, is the hard part. The 200k context window matters because it's the floor for that kind of cross-session memory. Below it, every reset costs you the architectural conversation you just had. Above it, you can hand the model a project's worth of source material and have a real working session. The Frontier Suite's quiet capability question is whether Microsoft's underlying model, whichever frontier model they're routing to in the moment, actually delivers that floor in production. Microsoft has the surface area. The question is whether the engine matches the chassis.
+
+## Two more signals: Cowork Dispatch and NemoClaw
+
+Two weeks after the Frontier Suite announcement, two things happened that sharpened my read.
+
+**Anthropic shipped Cowork Dispatch.** You can now message Claude from your phone, assign it real work, and walk away. It executes asynchronously on your desktop, pulling from your files, connectors, and plugins. Describe the outcome, come back to a finished deliverable. That's not chat. That's delegation.
+
+**NVIDIA announced NemoClaw at GTC.** An open-source platform for autonomous, long-running AI agents. Jensen called it "an operating system for agentic computers." Sandboxed, secure, enterprise-grade.
+
+The pattern is unmistakable. The industry isn't debating whether AI agents should do real work. It's building the infrastructure to make it safe, scalable, and standard. Three different companies, approaching the same problem from three different angles, within a month of each other.
+
+When the entire frontier alignment shifts at once, that's a signal worth taking seriously.
+
+## The Clawification of Copilot: from reading to doing
+
+Here's where it gets interesting for the Microsoft ecosystem.
+
+Copilot in Teams chats can already summarize conversations, generate recaps, and rewrite messages. Useful. But it's still reactive. It reads. It doesn't do.
+
+Imagine instead. You're on your phone between meetings. You message Copilot in a Teams chat: *"Pull last quarter's project data from SharePoint, cross-reference it with the finance workbook in OneDrive, and draft a status update for leadership."* You put your phone away. Twenty minutes later, the doc is sitting in your Teams chat, reviewed, formatted, ready for a last-pass edit before you forward it.
+
+That's the Clawification of Copilot. Not summarizing your work. **Doing** your work. Across your M365 data estate. From your pocket.
+
+Now consider the wrong shape of this. You message Copilot *"do my work today."* Twenty minutes later it's drafted three emails you didn't authorize, scheduled a meeting you didn't want, and updated a SharePoint page nobody reviewed. The Clawification only works when delegation has *shape*. The good shape is narrow outcome (a specific status update from named data sources), bounded resources (these workbooks, that channel, this folder), and explicit return (sit in this chat for review before anything goes anywhere). The bad shape is open-ended outcome with implicit resources and implicit return. Most of the early Copilot mishaps that will end up in case studies will come from organizations that adopted the capability without teaching the shape.
+
+The building blocks for the good shape are already in place:
+
+- **Copilot Cowork proves Microsoft understands the delegated-work model.** They aren't catching up to a concept anymore.
+- **The Teams chat surface is the most natural dispatch interface an enterprise worker could ask for.** Every M365 user is already there, every day.
+- **The M365 Graph is the richest enterprise data fabric on the planet.** SharePoint, OneDrive, Exchange, Teams, Loop, the org chart, the calendar. Nobody else has this.
+
+Claude can do this today against your local files. NemoClaw is building the open-source runtime for the agentic layer. The question isn't whether this capability is coming to Microsoft 365. It's how fast, and how much of the M365 Graph the first version actually touches.
+
+## The deployment problem the Frontier Suite needs to solve
+
+There's a second problem the Cowork shift exposes, one that matters specifically to architects.
+
+Picture the architect's day today. A client wants a Copilot Studio Agent that pulls from three SharePoint sites, applies a custom retrieval flow, and routes responses to a Teams channel with proper audit logging. The conversation with the model produces a generated tutorial. You read it. You translate the steps. You open the portal. You hit a permissions error. You go back to the model. It generates a different tutorial. You hit another error. Two hours later, you have a prototype that mostly works and a backlog of subtle config you'll need to revisit when the client asks for changes.
+
+This is the unspoken tax on every AI-assisted architecture engagement right now. We spend too much time translating AI suggestions into manual configuration. I don't want to read a generated tutorial on how to configure a Copilot Studio Agent. I don't want to copy-paste JSON or walk through 40 steps of documentation for a quick prototype.
+
+I want to review the proposed architecture, validate the logic, and say *"make it so."*
+
+That move, from Generative Instructions to Autonomous Deployment, is the wire that hasn't been connected yet. The current ceiling is "the model writes the config and you apply it." The next ceiling is "the model writes the config, validates it against your environment, applies it under guardrail, and reports back." Cowork-style memory makes this possible because the model holds the architecture state across the deployment loop, not just the current step.
+
+If Copilot Cowork closes that wire, the whole ecosystem wins. If it doesn't, the Frontier Suite is a better-looking sidebar.
+
+## Counter-arguments worth taking seriously
+
+When I've made this case to other architects, five pushbacks come back. Each is partially right.
+
+**"Microsoft moves slowly."** Real concern, but the Cowork pattern is now load-bearing for Microsoft's AI strategy. They will not cede the agentic surface to Anthropic and NVIDIA alone. The question isn't whether they ship. It's whether the first ship matches the depth of what's already in production at Anthropic.
+
+**"Permissions and governance aren't ready for delegated work in M365."** This is the harder objection. Delegated agents acting on M365 Graph data need a permissions model, audit trail, and rollback story that doesn't exist in Copilot today. *Who* delegated *what* scope to *which* agent against *whose* data, with *what* expiry, and *who* gets paged when it goes wrong? OSFI E-23 will want answers. Quebec Law 25 will want answers. Any sector regulator running an audit will want answers. The capability without the governance shell is shadow IT at enterprise scale.
+
+**"The org culture won't absorb this."** Workforce shifts from users to delegators. The skill of writing a precise outcome description is different from the skill of using a Copilot sidebar. Most enterprises haven't trained anyone for that, and the early adopters will be the ones who delegate well, not the ones with the best license tier.
+
+**"Sandboxing for autonomous agents is unsolved."** NemoClaw's whole bet is that an open-source agent OS solves this layer. Microsoft will need a sandboxing answer too, and "trust the agent" is not it. Until there's a clear story for what the agent can't do, enterprise adoption will lag the consumer demos.
+
+**"Cost economics will block this."** Long-running agentic workloads are expensive. Each Cowork-style session that runs for twenty minutes against the M365 Graph is multiple inference calls, retrieval calls, and storage operations. At enterprise scale, the bill matters. Microsoft will need a pricing model that doesn't make agentic Copilot unaffordable for the people it's actually for. Today's Copilot pricing is per-seat. The next version is going to need a usage shelf for delegated work, and early customers will need a way to budget it without a finance-team spreadsheet rebuild.
+
+None of these counter-arguments kill the thesis. They scope the realistic timeline.
+
+## What to do now: the architect's playbook
+
+If you're an architect or IT leader who wants to be ready rather than surprised, five moves to make right now.
+
+1. **Pilot delegation in a narrow scope.** Pick one team, one workflow, one M365 surface (Teams chat is the obvious entry). Pick something with a clean rollback path: drafting, summarizing across documents, scheduled reporting. Not anything that touches money, contracts, or external comms in v1. The narrow pilot is where you learn the *shape* of good delegation before the platform forces the question.
+2. **Build the governance posture before the capability lands.** Who can delegate, what scopes are allowed, where the audit trail lives, how rollback works. The same Policy-as-Code discipline I argued for in the [Sovereignty piece](/perspectives/ai-workloads-data-sovereignty-canada) applies here. Don't try to govern delegated agents through email tickets. The org that has the policy framework ready when the capability ships will be six months ahead of the org that scrambles after.
+3. **Train delegators.** A workforce that knows how to specify outcomes is more valuable than one that knows how to use Copilot's sidebar. Different skill. Build the muscle now while the stakes are low. The first 50 delegators in your org will set the cultural template; pick them deliberately.
+4. **Evaluate the M365 Graph permission model honestly.** Today it's user-centric. Agentic delegation will stress it. Get ahead of the conversation with security and identity before the platform forces it. The architects who can articulate the gap before the vendor pitch arrives will shape the response.
+5. **Watch the deprecation notices.** The adjacent shifts (Assistants API → Foundry Agents) are the canary. Architectures in this space get invalidated in months. Build modular, stay current, don't tie your design to a single managed orchestration service.
+
+Five moves, all doable inside a quarter, all building muscle for capability that's coming whether you're ready or not.
+
+## The dispatch interface as the new UX paradigm
+
+Step back from the platform politics for a second. Here's what's actually shifting.
+
+The screen between the worker and the work is changing. Not chat. Not the sidebar. Not the legacy menu of *"Copilot can help you with…"* The dispatch interface: speak the outcome, the work happens.
+
+For enterprises living in M365, the Teams chat surface is the natural home. From your pocket. In a meeting. Between meetings. The interface that already mediates how every M365 user communicates becomes the interface for delegating work to a coworker who doesn't get tired and doesn't context-switch.
+
+Cowork from your desktop is the demo. Cowork from your phone, in a Teams chat, against your full M365 Graph, is the product. The first vendor to land that loop with the right governance shell wins the enterprise agentic market for the next five years.
+
+Hopefully a team in Redmond is already sprinting on it.
+
+If Copilot could actually do the work for you from a Teams chat on your phone, what would you delegate first?
