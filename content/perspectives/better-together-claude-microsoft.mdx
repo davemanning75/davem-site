@@ -1,0 +1,93 @@
+---
+title: "Better Together: Adding Claude to a Microsoft-First AI Practice"
+dek: "CentriLogic's architecture team just completed the Claude Partner Network learning path. Here's the thinking behind it, and what the better-together thesis actually looks like from inside an established Microsoft practice."
+slug: "better-together-claude-microsoft"
+date: "2026-04-26"
+originallyPublished: ""
+tags: ["Claude", "Microsoft", "AI Strategy", "MSP", "Anthropic", "MCP"]
+readingTime: 8
+linkedinUrl: ""
+status: "published"
+---
+
+Claude Partner Network learning path: done. Plus two extras for good measure.
+
+Last week our leadership asked the architecture team to lead from the front on Anthropic certifications, so CentriLogic can move toward formal partner status in the Claude Partner Network. This week, mine are done.
+
+That's the announcement. What I want to write about is the reasoning behind it.
+
+CentriLogic isn't exploring AI. We hold all 6 Microsoft Solutions Partner Designations, multiple Specializations, and a client track record across cloud modernization, data platforms, and agentic AI delivery. The Microsoft practice is built. The question leadership was actually asking when they sent the architecture team toward Anthropic certification wasn't "should we do AI?" It was more specific: what role does Claude play alongside the Microsoft AI investments already running for our clients, and how do we position and deliver that credibly?
+
+That's the question the CPN learning path helped sharpen. The answer is what this piece is about.
+
+## The Framing That Gets It Wrong
+
+The conversation around AI models often defaults to "which one?" Copilot or Claude, Microsoft or Anthropic, OpenAI or something else.
+
+That's the wrong frame. The more useful question is: which tool, for which job, with what governance in place?
+
+Copilot and Claude don't compete at the workload level. They serve different surfaces, different problem shapes, and different points in a workflow. Copilot is strongest inside M365, embedded in the tools where knowledge workers already operate. Claude handles different problems: longer-context analysis, multi-step reasoning, producing artifacts that require holding more information across a larger window. A 200-page contract review. Drafting a technical proposal where the quality of the output depends on retaining context from early sections when writing later ones. Walking through an architecture review where the conclusions depend on correlating information across many inputs.
+
+These aren't competing use cases. They're different jobs. And an MSP that can articulate and deliver on that distinction is more useful to clients than one that treats it as a vendor choice.
+
+The four required CPN courses made this concrete in ways worth unpacking.
+
+## What the Learning Path Actually Taught
+
+**Introduction to Agent Skills** covers how Claude can be given reusable, structured instructions, the kind of thing a senior practitioner would put in a runbook. For a services firm, this has a specific implication: the judgment an experienced architect or practice lead applies to an RFP review, a governance assessment, or a pre-sales brief can be codified into a form that makes it available on demand. Consistency goes up. The knowledge doesn't leave when someone does.
+
+**Building with the Claude API** is where chat becomes the substrate for a service offering. Programmatic access, tool use, the patterns that connect a model to real systems and produce outputs a customer keeps. This is the difference between a productivity tool and a product.
+
+**Claude Code in Action** is useful well beyond developers once you see it run. For architects, it compresses the toil that sits around technical delivery: reviewing infrastructure-as-code, reading through SQL and DAX, working through a configuration the night before a client session. The same Microsoft outcome the customer signed up for, on a sharper timeline, with senior judgment still in the loop. The code and the configuration stay in the architect's environment. The AI is a tool, not a system with access to client infrastructure.
+
+**Introduction to Model Context Protocol** is the most important course for an MSP to think carefully about. MCP defines how a model connects to external systems and data sources. The potential here is significant: Claude reaching into the tools and systems where work actually lives, rather than requiring a user to manually copy and paste context into a chat window. For a managed services provider, that's the distance between an AI demo and AI that operates as infrastructure.
+
+The key word is potential. MCP-based integrations require thoughtful governance decisions about what the model can access, under what conditions, with what authorization controls in place. The organizations that get this right will treat connectivity as a governed architectural decision, not a default. The ones that get it wrong will learn why governance had to come first.
+
+Two electives I added: **Claude 101** (the prompting fundamentals that turn casual interaction into reliable workflow) and **Introduction to Claude Cowork** (how non-developers automate desktop work without writing code, particularly relevant in M365 environments where not every team member has a developer on call).
+
+## What "Better Together" Actually Means in Practice
+
+The better-together thesis is not about deep integration between Claude and the Microsoft stack. For most use cases, it doesn't need to be.
+
+Many of the most valuable ways our team uses Claude involve it running alongside Microsoft tools, not inside them. An architect reviews an IaC template in one window and works through it with Claude Code in another. A practice lead drafts a proposal section, uses Claude to pressure-test the logic, then brings the refined version into Word. A pre-sales team member uses Claude to build context on a prospect's industry before opening Salesforce. Side-by-side, not integrated. Effective, and within the data handling constraints that apply to how we manage client information responsibly.
+
+Where integration becomes relevant is when it's designed deliberately, and worth the governance investment. There are four patterns worth naming.
+
+**Copilot and Claude: different surfaces, different jobs.** Copilot is strongest in the real-time M365 context: Teams threads, in-document drafting, calendar and email in Outlook. Claude handles different work: longer analysis, multi-step reasoning, producing deliverables that require holding more context. Both are worth having. Most users will operate them in parallel, each for the job it handles best, without the tools being formally connected.
+
+**Microsoft Foundry and model choice by workload.** Anthropic's models (Sonnet, Haiku, Opus) are now available on Azure through Microsoft Foundry alongside the OpenAI catalog. For clients already on Azure with existing agreements, this means model selection can happen inside the governed cloud environment they've already committed to. The choice becomes workload-specific rather than a platform commitment: which model handles this particular job best? That question is only answerable from inside both ecosystems.
+
+**Claude Code alongside the Microsoft data stack.** Architects working on Fabric, Synapse, Power BI, or Azure landing zones use Claude Code for their own technical work: reviewing IaC, reading through SQL, walking through DAX logic. The Microsoft deliverable stays the same. The timeline compresses. This is an architect's productivity tool, not a system with access to client environments.
+
+**MCP and governed connectivity, where applicable.** Microsoft's Graph MCP server offers read access to M365 content in public preview. Community-built servers extend into write actions in specific scenarios. For an MSP, the architecture question is not "how do we connect Claude to everything?" but "which connections make sense, under what governance, with what authorization model in place?" The answer to that question varies by client, by data classification, and by what the engagement explicitly calls for. Connectivity is a design decision, not a default.
+
+## The Internal Proof of Concept
+
+The CPN certification path was one part of a broader internal initiative. Running in parallel: a proposal to formalize Claude Enterprise across the organization, built on learnings from an initial pilot with a small group of solutions architects, marketers, and practice leads.
+
+What the pilot showed: the most immediately useful applications were the ones that didn't require any system integration at all. Architects working through RFP requirements. Practice leads reviewing proposal logic. Marketing refining positioning. Claude running as a capable professional tool, alongside the existing stack, with the practitioner in judgment at every step. That pattern generalizes. It's also the one that fits most cleanly within the data handling discipline that responsible AI use requires.
+
+The governance layer is being built alongside the deployment. An AI Acceptable Use Policy is in progress, covering all AI tools in use across the organization, grounded in three principles: human accountability for all AI-generated output, data stewardship that keeps client and confidential information handled appropriately, and professional integrity that holds AI output to the same quality bar as any other work product. The policy makes explicit what should be true anyway: the tool is an accelerant, not a replacement for judgment.
+
+The internal deployment is the reference model for what CentriLogic delivers to clients. Not because the technology is the same for every client (it won't be), but because the process is: understand the use cases, deploy with structure, govern it before you scale it, enable the team.
+
+## The Questions Worth Taking Seriously
+
+A few objections surface when this "better together" framing comes up with technical buyers.
+
+**"Copilot already has Claude in it. Why deploy both?"** Claude inside Copilot improves in-app M365 productivity. Standalone Claude via the API, Claude Code, and Cowork handles things Copilot wasn't built to reach: longer context windows, agentic workflows, custom integrations, and work that happens outside the M365 surface entirely. Different coverage. Both are worth having.
+
+**"Why Claude over GPT-4o or Gemini?"** For coding, long-context tasks, and agentic tool use, Claude is winning specific workloads consistently. That's the practical answer. The broader answer is that workload-fit-first is the right frame. The MSP that can make that call credibly, without vendor commitment clouding the recommendation, is the one that earns trust on architecture decisions. Foundry and Bedrock availability means the choice can happen inside governed cloud infrastructure, not as a separate procurement.
+
+## Where This Goes
+
+The better-together thesis applies at every layer.
+
+Claude and Copilot are better together, when deployed for the right jobs. Model choice within Foundry is better than mono-vendor commitment. Internal AI adoption — with governance built in from the start — is better than either unbounded experimentation or waiting for everything to be perfect before moving.
+
+Claude Partner Network status is a milestone on that trajectory, not the destination. The destination is a practice that helps clients navigate these decisions with the same discipline CentriLogic is applying internally: which tools, for which jobs, with what governance in place, delivered by a team that has run the experiment on itself first.
+
+A frontier firm doesn't wait for the model mix to be obvious. It works it out, builds the capability, and shows its work.
+
+That's what this week's certification represents.
