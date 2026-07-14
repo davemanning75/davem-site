@@ -5,7 +5,7 @@ import PageBackground from "@/components/PageBackground";
 export const metadata: Metadata = {
   title: "Career | Dave Manning",
   description:
-    "Leadership progression across AI, cloud, and enterprise architecture — from technical lead to Director of Architecture.",
+    "Leadership progression across AI, cloud, and enterprise architecture — from technical lead to Senior Director, Architecture.",
 };
 
 export default function CareerPage() {

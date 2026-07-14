@@ -232,9 +232,9 @@ export const heroSignals: HeroSignal[] = [
     detail: "COE, Landing Zone, and Agent Factory Patterns",
   },
   {
-    value: "3 director roles",
-    label: "Leadership Progression",
-    detail: "Architecture, Consulting, and Technical Strategy",
+    value: "4 leadership roles",
+    label: "Escalating Scope",
+    detail: "Architect to Senior Director, Architecture",
   },
   {
     value: "Regulated + F500",
@@ -544,6 +544,7 @@ export const proofCases: ProofCase[] = [
       "Authored the company's AI Acceptable Use Policy to govern the deployment, applying the same governance pattern used in client AI COE engagements.",
       "Completed the Claude Partner Network certification path (4 required courses plus 2 additional) and set CentriLogic up for formal partner status.",
       "Applied the same AI operating discipline to CentriLogic's internal tools that the firm architects for external clients.",
+      "This work earned CentriLogic's Frontier Award, recognizing practical, high-impact AI adoption across the firm.",
     ],
     architecture: [
       "4-mode coaching framework surfaced as Copilot suggested prompts: Quick Lookup, Quiz Me, Pre-Call Coach, and Role-Play / Objection Drill",
@@ -635,8 +636,8 @@ export const careerMetrics: CareerMetric[] = [
     label: "Enterprise Transformation and Architecture Leadership",
   },
   {
-    value: "3",
-    label: "Director-level Leadership Roles",
+    value: "4",
+    label: "Leadership Roles, Escalating Scope",
   },
   {
     value: "$110M",
@@ -654,7 +655,27 @@ export const careerMetrics: CareerMetric[] = [
 
 export const careerRoles: CareerRole[] = [
   {
-    period: "2021 - Present",
+    period: "2026 - Present",
+    role: "Senior Director, Architecture",
+    company: "Centrilogic",
+    summary:
+      "Promoted from Director of Architecture in recognition of building and scaling the AI Factory, AI COE framework, and Landing Zone delivery model into Centrilogic's primary AI go-to-market. This work earned Centrilogic's Frontier Award, recognizing practical, high-impact AI adoption across the firm.",
+    scale:
+      "Expanded mandate spanning the AI Factory delivery model, the Agentic AI pilot offering, firm-wide AI tool adoption, and practice investment direction.",
+    bullets: [
+      "Continuing ownership of the AI Factory, AI COE framework, AI Landing Zone, and AI Agent Factory delivery model.",
+      "Expanded scope across the Agentic AI pilot offering and firm-wide AI tool adoption.",
+      "Added voice in strategic-account direction and practice investment decisions.",
+    ],
+    supportingSignals: [
+      "Recognized firm-wide for practical AI adoption (Frontier Award, Jul 2026)",
+      "Escalating accountability, not just escalating technical scope",
+      "Continuity of the AI Factory / COE / Landing Zone mandate through the promotion",
+    ],
+    defaultOpen: true,
+  },
+  {
+    period: "2021 - 2026",
     role: "Director of Architecture",
     company: "Centrilogic / WatServ",
     summary:
@@ -672,7 +693,6 @@ export const careerRoles: CareerRole[] = [
       "Executive translation of technical strategy into business action",
       "Operational focus on shipping governed, production-ready AI and AI managed services, not just demos",
     ],
-    defaultOpen: true,
   },
   {
     period: "2015 - 2021",
