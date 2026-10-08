@@ -716,8 +716,11 @@ export const careerRoles: CareerRole[] = [
       "Continuing ownership of the AI Factory, AI COE framework, AI Landing Zone, and AI Agent Factory delivery model.",
       "Expanded scope across the Agentic AI pilot offering and firm-wide AI tool adoption.",
       "Added voice in strategic-account direction and practice investment decisions.",
+      "Architect and technical engagement lead for Centrilogic's production Claude delivery, including the governed agent skills that helped the firm reach Claude Partner Network Select tier.",
+      "Defined the firm's SDLC for multi-step Claude skills, with delivery accelerated by Claude Code.",
     ],
     supportingSignals: [
+      "Claude Partner Network Select tier achieved on production client delivery (Oct 2026)",
       "Recognized firm-wide for practical AI adoption (Frontier Award, Jul 2026)",
       "Escalating accountability, not just escalating technical scope",
       "Continuity of the AI Factory / COE / Landing Zone mandate through the promotion",
