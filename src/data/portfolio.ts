@@ -471,6 +471,49 @@ export const proofCases: ProofCase[] = [
     featured: true,
   },
   {
+    id: "governed-claude-skills-pe",
+    category: "Production Claude",
+    title: "Governed Claude Skills for Private Equity",
+    featured: true,
+    headline:
+      "Turning 70-page CIMs into signed-off financial summaries, with controls a finance team can defend.",
+    summary:
+      "Architected and led the technical engagement for a production Claude skill at a private equity firm. Claude reads a roughly 70-page Confidential Information Memorandum and proposes each line item. The analyst approves, and deterministic code writes the approved figures into the firm's own template. The skill went live 15 days after kickoff. It was built with Claude Code under a skills SDLC Dave defined, then reused for a second private equity firm through configuration alone. This delivery is a core part of the production proof behind Centrilogic achieving the Select partner tier in the Claude Partner Network Services Track.",
+    impact: [
+      "20 minutes to under 5 per Financial Summary",
+      "8 analysts live in week one",
+      "Live 15 days after kickoff",
+    ],
+    leadership: [
+      "Defined an SDLC for multi-step Claude skills: Claude-drafted requirements, an agreed design, traceable GitHub issues, CI gates and versioned packages",
+      "Led the delivery hackathon and finish sessions that took the skill from v0.1 to production in about two weeks",
+      "Set \"build once, parameterize per client, don't fork,\" which made the second PE engagement a configuration exercise rather than a rebuild",
+      "Owned the client engagement end to end, from proposal and kickoff through go-live evidence and customer-story sign-off",
+    ],
+    architecture: [
+      "Claude proposes, the analyst approves, deterministic code writes. The model never does arithmetic on a financial figure.",
+      "Every figure records its page, its row and unit as printed, a confidence score, and who approved it and when. Anything below a 90% threshold is routed to a human.",
+      "Runs in Claude Cowork inside the client's own Claude Enterprise tenant. Nothing is hosted by Centrilogic.",
+      "About 35,000 lines of tests and 69 architecture decision records within 11 days. Extraction is scored against client-cleared CIMs, with a confident wrong value treated as the hard failure.",
+    ],
+    outcomes: [
+      "Financial Summary build time cut from about 20 minutes of manual effort to under 5, and the analyst is free to do other work while it runs",
+      "8 analysts and associates running it on live deals in the first week",
+      "Every number answers \"which page, who approved it, and when\" without a meeting",
+      "Provided a production deployment and the public customer reference that helped Centrilogic reach Claude Partner Network Select tier (Oct 2026)",
+    ],
+    stack: [
+      "Claude Code",
+      "Claude Cowork",
+      "Agent Skills",
+      "Claude Enterprise",
+      "GitHub Actions",
+      "Python",
+      "Architecture Decision Records",
+      "Claude Partner Network",
+    ],
+  },
+  {
     id: "contact-centre",
     category: "Production agent",
     title: "AI-Powered Contact Centre Agent",
