@@ -575,17 +575,17 @@ export const proofCases: ProofCase[] = [
     headline:
       "On-demand AI coaching for the full sales org, shipped in 24 hours, alongside the Claude Enterprise deployment and governance program that made it possible.",
     summary:
-      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training. He shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in the company's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through Executive approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path, building the internal AI operating model CentriLogic sells to clients.",
+      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training. He shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in the company's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through Executive approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path, the first step toward CentriLogic's Select partner tier, building the internal AI operating model CentriLogic sells to clients.",
     impact: [
       "AI sales coach deployed to 25+ sellers in under 24 hours",
-      "Claude Enterprise approved and governed through a formal AI AUP",
+      "Claude Enterprise: pilot to 100+ seats, governed by a formal AI AUP",
       "Internal AI adoption model mirrors the pattern CentriLogic architects for clients",
     ],
     leadership: [
       "Identified the sales team's AI knowledge gap and chose to build a coaching tool rather than schedule training. On-demand, rep-specific, and built from real CentriLogic proof points.",
       "Built the Claude Enterprise business case, secured executive approval, and tied the decision to the company's commitment to operating as a frontier AI firm.",
       "Authored the company's AI Acceptable Use Policy to govern the deployment, applying the same governance pattern used in client AI COE engagements.",
-      "Completed the Claude Partner Network certification path (4 required courses plus 2 additional) and set CentriLogic up for formal partner status.",
+      "Completed the Claude Partner Network certification path (4 required courses plus 2 additional), then helped carry CentriLogic from certification to the Select partner tier in the Claude Partner Network Services Track (Oct 2026).",
       "Applied the same AI operating discipline to CentriLogic's internal tools that the firm architects for external clients.",
       "This work earned CentriLogic's Frontier Award, recognizing practical, high-impact AI adoption across the firm.",
     ],
@@ -595,13 +595,13 @@ export const proofCases: ProofCase[] = [
       "Knowledge base grounded in CentriLogic's AI Factory materials, Sales Content, and Client case study materials",
       "Case study matching framework covering 6 client industry profiles with matched proof points and outcomes",
       "Built in Claude Cowork, ported to Copilot Agent Builder for org-wide deployment on the M365 surface sellers already use",
-      "Claude pilot: 10 technical early adopters expanded to 35, with full Enterprise rollout planned",
+      "Claude Enterprise: grew from a pilot of 10 technical early adopters to company-wide adoption, with 100+ seats in use and growing",
     ],
     outcomes: [
       "Sales team able to handle 6 core AI objection types (budget, readiness, ROI, Microsoft vs. Claude, differentiation, and industry fit) with coached, case-study-backed responses",
       "Reps generate structured pre-call briefs with matched case studies, discovery questions, and anticipated objections in seconds rather than hours",
       "Monday need identified, Tuesday in use. A 24-hour deployment cycle that demonstrates the same model CentriLogic delivers for clients.",
-      "Claude Enterprise deployed with executive approval and a formal governance policy. A governed internal platform, not shadow IT.",
+      "Claude Enterprise deployed with executive approval and a formal governance policy, now adopted across most of the company (100+ seats). A governed internal platform, not shadow IT.",
       "Internal AI operating model mirrors the client pattern: identify the gap, deploy with structure, govern it, enable the team, and iterate.",
     ],
     stack: [
