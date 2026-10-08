@@ -887,14 +887,17 @@ canvas#stars {
 }
 
 .stats-strip-inner {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
   width: min(1240px, calc(100% - 2.5rem));
   margin: 0 auto;
 }
 
 .stats-strip-item {
+  flex: 1 1 0;
+  min-width: 0;
   text-align: center;
   opacity: 0;
   transform: translateY(16px);
@@ -908,7 +911,7 @@ canvas#stars {
 
 .stats-strip-value {
   font-family: var(--heading);
-  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -1834,6 +1837,10 @@ canvas#stars {
   .voices-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .stats-strip-item {
+    flex: 0 1 calc((100% - 3rem) / 3);
+  }
 }
 
 @media (max-width: 900px) {
@@ -1947,10 +1954,6 @@ canvas#stars {
     width: clamp(160px, 50%, 200px);
   }
 
-  .stats-strip-inner {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .pillar-grid,
   .snapshot-grid,
   .voices-grid,
@@ -2009,8 +2012,11 @@ canvas#stars {
   }
 
   .stats-strip-inner {
-    grid-template-columns: 1fr 1fr;
     gap: 1rem;
+  }
+
+  .stats-strip-item {
+    flex: 0 1 calc((100% - 1rem) / 2);
   }
 
   .stats-strip-value {

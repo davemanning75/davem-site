@@ -83,7 +83,7 @@ export const siteCopy = {
     label: "Executive AI leadership",
     title: "I build AI operating models that move enterprises from ambition to governed production delivery.",
     intro:
-      "Architected Centrilogic's AI Factory and the COE, Landing Zone, and Agent Factory patterns behind it, then used those foundations to help teams deliver governed AI in regulated enterprise environments.",
+      "Architected Centrilogic's AI Factory and the COE, Landing Zone, and Agent Factory patterns behind it, then led production Claude delivery that helped Centrilogic reach Select tier in the Claude Partner Network.",
     pullQuoteId: "lokesh-kumar-padmanaban",
     primaryCtaLabel: "Review leadership proof",
     secondaryCtaLabel: "Start a leadership conversation",
@@ -241,6 +241,11 @@ export const heroSignals: HeroSignal[] = [
     label: "Trust Environments",
     detail: "Financial Services, Public Sector, and Enterprise Delivery",
   },
+  {
+    value: "CPN Select",
+    label: "Claude Production Delivery",
+    detail: "Governed agent skills, live in private equity",
+  },
 ];
 
 export const heroMandate = [
@@ -313,6 +318,7 @@ export const snapshotGroups: SnapshotGroup[] = [
       "Manufacturing",
       "Technology",
       "Education",
+      "Private equity",
     ],
   },
   {
@@ -324,6 +330,7 @@ export const snapshotGroups: SnapshotGroup[] = [
       "Contact-centre transformation",
       "Enterprise roadmaps",
       "RFP and SOW automation",
+      "Governed agent skills",
     ],
   },
   {
@@ -471,6 +478,49 @@ export const proofCases: ProofCase[] = [
     featured: true,
   },
   {
+    id: "governed-claude-skills-pe",
+    category: "Production Claude",
+    title: "Governed Claude Skills for Private Equity",
+    featured: true,
+    headline:
+      "Turning 70-page CIMs into signed-off financial summaries, with controls a finance team can defend.",
+    summary:
+      "Architected and led the technical engagement for a production Claude skill at a private equity firm. Claude reads a roughly 70-page Confidential Information Memorandum and proposes each line item. The analyst approves, and deterministic code writes the approved figures into the firm's own template. The skill went live 15 days after kickoff. It was built with Claude Code under a skills SDLC Dave defined, then reused for a second private equity firm through configuration alone. This delivery is a core part of the production proof behind Centrilogic achieving the Select partner tier in the Claude Partner Network Services Track.",
+    impact: [
+      "20 minutes to under 5 per Financial Summary",
+      "8 analysts live in week one",
+      "Live 15 days after kickoff",
+    ],
+    leadership: [
+      "Defined an SDLC for multi-step Claude skills: Claude-drafted requirements, an agreed design, traceable GitHub issues, CI gates and versioned packages",
+      "Led the delivery hackathon and finish sessions that took the skill from v0.1 to production in about two weeks",
+      "Set \"build once, parameterize per client, don't fork,\" which made the second PE engagement a configuration exercise rather than a rebuild",
+      "Owned the client engagement end to end, from proposal and kickoff through go-live evidence and customer-story sign-off",
+    ],
+    architecture: [
+      "Claude proposes, the analyst approves, deterministic code writes. The model never does arithmetic on a financial figure.",
+      "Every figure records its page, its row and unit as printed, a confidence score, and who approved it and when. Anything below a 90% threshold is routed to a human.",
+      "Runs in Claude Cowork inside the client's own Claude Enterprise tenant. Nothing is hosted by Centrilogic.",
+      "About 35,000 lines of tests and 69 architecture decision records within 11 days. Extraction is scored against client-cleared CIMs, with a confident wrong value treated as the hard failure.",
+    ],
+    outcomes: [
+      "Financial Summary build time cut from about 20 minutes of manual effort to under 5, and the analyst is free to do other work while it runs",
+      "8 analysts and associates running it on live deals in the first week",
+      "Every number answers \"which page, who approved it, and when\" without a meeting",
+      "Provided a production deployment and the public customer reference that helped Centrilogic reach Claude Partner Network Select tier (Oct 2026)",
+    ],
+    stack: [
+      "Claude Code",
+      "Claude Cowork",
+      "Agent Skills",
+      "Claude Enterprise",
+      "GitHub Actions",
+      "Python",
+      "Architecture Decision Records",
+      "Claude Partner Network",
+    ],
+  },
+  {
     id: "contact-centre",
     category: "Production agent",
     title: "AI-Powered Contact Centre Agent",
@@ -532,17 +582,17 @@ export const proofCases: ProofCase[] = [
     headline:
       "On-demand AI coaching for the full sales org, shipped in 24 hours, alongside the Claude Enterprise deployment and governance program that made it possible.",
     summary:
-      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training. He shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in the company's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through Executive approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path, building the internal AI operating model CentriLogic sells to clients.",
+      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training. He shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in the company's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through Executive approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path, the first step toward CentriLogic's Select partner tier, building the internal AI operating model CentriLogic sells to clients.",
     impact: [
       "AI sales coach deployed to 25+ sellers in under 24 hours",
-      "Claude Enterprise approved and governed through a formal AI AUP",
+      "Claude Enterprise: pilot to 100+ seats, governed by a formal AI AUP",
       "Internal AI adoption model mirrors the pattern CentriLogic architects for clients",
     ],
     leadership: [
       "Identified the sales team's AI knowledge gap and chose to build a coaching tool rather than schedule training. On-demand, rep-specific, and built from real CentriLogic proof points.",
       "Built the Claude Enterprise business case, secured executive approval, and tied the decision to the company's commitment to operating as a frontier AI firm.",
       "Authored the company's AI Acceptable Use Policy to govern the deployment, applying the same governance pattern used in client AI COE engagements.",
-      "Completed the Claude Partner Network certification path (4 required courses plus 2 additional) and set CentriLogic up for formal partner status.",
+      "Completed the Claude Partner Network certification path (4 required courses plus 2 additional), then helped carry CentriLogic from certification to the Select partner tier in the Claude Partner Network Services Track (Oct 2026).",
       "Applied the same AI operating discipline to CentriLogic's internal tools that the firm architects for external clients.",
       "This work earned CentriLogic's Frontier Award, recognizing practical, high-impact AI adoption across the firm.",
     ],
@@ -552,13 +602,13 @@ export const proofCases: ProofCase[] = [
       "Knowledge base grounded in CentriLogic's AI Factory materials, Sales Content, and Client case study materials",
       "Case study matching framework covering 6 client industry profiles with matched proof points and outcomes",
       "Built in Claude Cowork, ported to Copilot Agent Builder for org-wide deployment on the M365 surface sellers already use",
-      "Claude pilot: 10 technical early adopters expanded to 35, with full Enterprise rollout planned",
+      "Claude Enterprise: grew from a pilot of 10 technical early adopters to company-wide adoption, with 100+ seats in use and growing",
     ],
     outcomes: [
       "Sales team able to handle 6 core AI objection types (budget, readiness, ROI, Microsoft vs. Claude, differentiation, and industry fit) with coached, case-study-backed responses",
       "Reps generate structured pre-call briefs with matched case studies, discovery questions, and anticipated objections in seconds rather than hours",
       "Monday need identified, Tuesday in use. A 24-hour deployment cycle that demonstrates the same model CentriLogic delivers for clients.",
-      "Claude Enterprise deployed with executive approval and a formal governance policy. A governed internal platform, not shadow IT.",
+      "Claude Enterprise deployed with executive approval and a formal governance policy, now adopted across most of the company (100+ seats). A governed internal platform, not shadow IT.",
       "Internal AI operating model mirrors the client pattern: identify the gap, deploy with structure, govern it, enable the team, and iterate.",
     ],
     stack: [
@@ -666,8 +716,11 @@ export const careerRoles: CareerRole[] = [
       "Continuing ownership of the AI Factory, AI COE framework, AI Landing Zone, and AI Agent Factory delivery model.",
       "Expanded scope across the Agentic AI pilot offering and firm-wide AI tool adoption.",
       "Added voice in strategic-account direction and practice investment decisions.",
+      "Architect and technical engagement lead for Centrilogic's production Claude delivery, including the governed agent skills that helped the firm reach Claude Partner Network Select tier.",
+      "Defined the firm's SDLC for multi-step Claude skills, with delivery accelerated by Claude Code.",
     ],
     supportingSignals: [
+      "Claude Partner Network Select tier achieved on production client delivery (Oct 2026)",
       "Recognized firm-wide for practical AI adoption (Frontier Award, Jul 2026)",
       "Escalating accountability, not just escalating technical scope",
       "Continuity of the AI Factory / COE / Landing Zone mandate through the promotion",
