@@ -83,7 +83,7 @@ export const siteCopy = {
     label: "Executive AI leadership",
     title: "I build AI operating models that move enterprises from ambition to governed production delivery.",
     intro:
-      "Architected Centrilogic's AI Factory and the COE, Landing Zone, and Agent Factory patterns behind it, then used those foundations to help teams deliver governed AI in regulated enterprise environments.",
+      "Architected Centrilogic's AI Factory and the COE, Landing Zone, and Agent Factory patterns behind it, then led production Claude delivery that helped Centrilogic reach Select tier in the Claude Partner Network.",
     pullQuoteId: "lokesh-kumar-padmanaban",
     primaryCtaLabel: "Review leadership proof",
     secondaryCtaLabel: "Start a leadership conversation",
@@ -241,6 +241,11 @@ export const heroSignals: HeroSignal[] = [
     label: "Trust Environments",
     detail: "Financial Services, Public Sector, and Enterprise Delivery",
   },
+  {
+    value: "CPN Select",
+    label: "Claude Production Delivery",
+    detail: "Governed agent skills, live in private equity",
+  },
 ];
 
 export const heroMandate = [
@@ -313,6 +318,7 @@ export const snapshotGroups: SnapshotGroup[] = [
       "Manufacturing",
       "Technology",
       "Education",
+      "Private equity",
     ],
   },
   {
@@ -324,6 +330,7 @@ export const snapshotGroups: SnapshotGroup[] = [
       "Contact-centre transformation",
       "Enterprise roadmaps",
       "RFP and SOW automation",
+      "Governed agent skills",
     ],
   },
   {
