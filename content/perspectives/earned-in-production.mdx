@@ -1,0 +1,129 @@
+---
+title: "Earned in Production: What It Took to Reach Claude Partner Network Select"
+dek: "In April our architects finished the certification path. In October Centrilogic reached Select. Production work filled the gap between the two, delivered faster than I would have believed a year ago."
+slug: "earned-in-production"
+date: "2026-10-08"
+originallyPublished: ""
+tags: ["Claude", "Claude Code", "Agent Skills", "Private Equity", "AI Governance", "Claude Partner Network"]
+readingTime: 10
+linkedinUrl: ""
+status: "published"
+---
+
+The customer story that got us over the line was written by an agent.
+
+Late in September we had a production Claude skill live at a private equity firm. We also needed a public account of that work. I asked for it the way we now ask for everything else: as a GitHub issue in the same repository as the skill. *Write the public customer story.* An agent picked it up. It drafted the story from the business requirements, the architecture decision records and the go-live notes, all of which were already in the repo. The client's associate reviewed it and came back with one grammar change. It went live on our site shortly after.
+
+This week we [announced it](https://www.centrilogic.com/claude-partner-network-select-partner-tier/): Centrilogic has achieved the Select partner tier in the Claude Partner Network Services Track.
+
+That's the announcement. What I want to write about is how we got there, because how we got there is the more useful story.
+
+## From the Classroom to Production
+
+In April I wrote about why Centrilogic, an established Microsoft practice, was adding Claude, and about our architecture team finishing the Claude Partner Network learning path. That piece ended with certifications. It was a fair place to stop. Certifications get you in the door.
+
+They don't prove anything to a customer, though. The Services Track recognizes three things: a certified delivery team, Claude use cases delivered for clients, and public customer references that show the work. Two of those three can't be done in a classroom. They happen in production, with real users, against a deadline, under someone else's governance.
+
+So, between April and October the work changed. We moved from learning the platform to shipping on it. Inside the firm, Claude stopped being a pilot too. Most of the company is now adopting it, with more than 100 seats in use and more added every day. The rest of this piece is about what that looked like on the ground, and about the part that surprised me most: how much Claude Code compressed delivery.
+
+## A Workflow Worth Fixing
+
+The anchor engagement was with a private equity firm. The problem was narrow, recurring and expensive to get wrong.
+
+For every investment memo, someone on the deal team builds a one-page Financial Summary from the company's Confidential Information Memorandum. A CIM is a deck of roughly 70 pages, much of it images. The financial overview sits on a handful of pages, and those pages move from deck to deck. The analyst finds them and reads revenue, gross profit, EBITDA and adjustments across every reported period. Then they convert the units in their head and re-key everything into Excel.
+
+That work comes back with every deal. It's also exposed to the mistakes that matter most in this domain: a figure in thousands read as millions, gross revenue where net was wanted, the wrong EBITDA bridge. And when the sheet is done, nothing records which page a number came from or who entered it. The next cycle starts from zero.
+
+## "Can't Claude Already Do This?"
+
+That was the first objection, and it was a fair one. Yes, Claude can read a CIM and tell you the EBITDA. Someone on the second PE firm's deal team put it well: plain Claude got him about 75 to 80 percent of the way. That number moved with how good the ad hoc prompt was that day. Getting there took a lot of steering, and he still had to read every line to trust it.
+
+That gap is the whole point. A chat answer is an answer you have to re-verify. A finance team needs a record it can defend.
+
+So, we didn't build a smarter prompt. We built controls, and the design principle fits on one line:
+
+**Claude proposes. The analyst approves. Deterministic code writes.**
+
+In practice:
+
+- **The model never does arithmetic on a financial figure.** Growth, margin and adjusted EBITDA stay as the template's own formulas. Unit conversion happens once, in code, when the template is populated.
+- **Nothing is written without a named approval.** Claude proposes each line item for each period. The analyst approves or corrects it in chat, or in an Excel review workbook if they prefer. Every approval is stamped with who signed off and when.
+- **Every figure carries its provenance:** the page it was read from, the row and unit as printed, and a confidence score. Anything below the firm's 90 percent threshold goes to a human instead of being written quietly.
+- **Judgment persists.** When the next CIM for a company arrives, earlier approvals stay in place. If a new extraction disagrees, the analyst sees it as a pending re-proposal. It never overwrites a decision they have already made.
+- **The data stays where the client keeps it.** The skill runs in Claude Cowork inside the firm's own Claude Enterprise tenant, against a folder on the analyst's managed machine. We host nothing and read nothing.
+
+The best summary came from our internal sales brief: *the model is the reader; the skill is the controls.* Every rule the skill enforces came from the client's own answers on edge cases. Each one is enforced in code, not in a prompt someone has to remember to write.
+
+## How Claude Code Compressed Delivery
+
+This is the part I keep coming back to.
+
+I've been in this industry for more than twenty years. Early on at IBM I automated builds and upgrades across 300+ servers and thought that was leverage. A year ago, I would have scoped this skill as a traditional custom build: roughly three months, four to six people across business analysis, development and QA.
+
+Here's what happened instead.
+
+The client kicked off on September 9. Two days later I ran an internal hackathon with two teams and two skills. The day had a second objective that I considered just as important as the code: an SDLC for skills. We had a lifecycle for building agents. We didn't have one for multi-step skills, and we weren't going to ship to a finance team without one.
+
+The process we agreed that afternoon, and still follow:
+
+1. Claude drafts the business requirements. People review and agree with them before anything is built.
+2. Technical requirements are derived from them.
+3. An implementation design is agreed. No free-form development.
+4. Claude converts the agreed scope into traceable GitHub issues.
+5. The team builds against those issues, with Claude Code doing most of the typing.
+6. GitHub Actions builds and validates every change. Deterministic stages are unit-tested with no model calls and no client data.
+7. The skill is packaged as a versioned, reproducible plugin with install instructions.
+
+By the following Monday there was a working package: a four-stage pipeline, fifteen source modules, twenty-three architecture decision records and a clean client configuration. It wasn't a prototype.
+
+Eleven days after the hackathon the repository held 45 test modules, about 35,000 lines of tests and 69 recorded architecture decisions, each with its reasoning and source. Extraction was being scored against five client-cleared CIMs. A confident wrong value counted as the hard failure, because that is the error a finance team can't tolerate. Today the repo has more than 150 pull requests behind it. The skill went from v0.1 to v1.5 in about two weeks.
+
+The skill went live with the client's analysts on September 24. That was fifteen days after kickoff.
+
+Shane Castle led the build, and most of those pull requests carry his name. What strikes me isn't the volume. It's what the volume is made of. Requirements documents, design documents, ADRs, test fixtures and CI gates are the artifacts teams usually skip when the timeline is tight. Here they were cheap enough that we never skipped them. When typing is nearly free, rigor stops being the thing you trade away to hit a date.
+
+The human work moved up a level. Shane, Gary Smith and I spent our time on judgment. What does "revenue" mean for this firm? Which EBITDA bridge should Adjustments tie to? What happens when the model is unsure? Where does the Python actually run? Which permission in someone else's tenant could quietly sink go-live? Those questions took the time. The code mostly didn't.
+
+## The Stress Test
+
+The moment I knew it would hold came on a Friday evening, the day after go-live.
+
+The client's associate had spent part of his evening throwing CIMs at the skill. He wasn't running a scripted acceptance test. He was trying real decks, the way an analyst would. His note back: everything seemed to be working properly, and *"I think it's in great shape!"* I answered his last question that night, about how the skill recognizes a company it has seen before, and that was it.
+
+Within the first week, eight analysts and associates were running it on live deals. Building a Financial Summary by hand took about twenty minutes. With the skill it takes under five, from attaching the deck to a populated template, and the analyst can work on something else while it runs. Every number in every summary now answers *which page, who approved it, and when* without a meeting.
+
+The client's own words, from the published story: the skill "preserves oversight while improving consistency, traceability, and confidence."
+
+## Build Once, Configure Twice
+
+One decision from the hackathon has paid for itself already: build once, parameterize per client, don't fork.
+
+Everything specific to the first firm lives in configuration: its template, its in-scope columns, its output units, its confidence threshold, its list of portfolio companies. Before a second private equity firm had even signed, we stubbed a second configuration file and ran the loader against it to prove nothing was hard-coded.
+
+Then we screen-shared an early working version with that second firm. It still had issues to work out, and we said so. They signed the next day. Their engagement starts with a reworked version of the same skill, plus memo skills built for the industries they invest in. Onboarding a second client became a packaging exercise, not a second build. That's the economics a services firm should be chasing. Each engagement leaves behind reusable IP instead of starting from zero.
+
+## Not Zero-Sum
+
+The other production work came from a different direction. A software company wanted its developers to adopt Claude Code alongside GitHub Copilot. Gary Smith led the delivery.
+
+Internally, it raised a fair question for a Microsoft partner: does every dollar a client spends on Claude come out of their Azure commitment? My answer then, and now, is no. Claude Code and Azure consumption aren't in competition. The developers still build on Azure. They just get more done in a week.
+
+For developer-led clients, this kind of engagement does something else. It widens their view of what's possible. Once a team has seen a requirements document turn into a set of issues and then into tested code within a single working session, the conversation about what to build next changes.
+
+## What Select Actually Recognizes
+
+It's tempting to read a partner tier as a badge. I read it as evidence that a way of working survived contact with production.
+
+Here's what I'd carry forward:
+
+- **Start with a workflow that recurs and hurts when it's wrong.** Narrow beats ambitious. One skill that's live beats three that are half-built.
+- **Design the controls before the prompts.** Decide what the model may read, what code must write and what a human must approve. In regulated or financial work, that split is the product.
+- **Make the governance artifacts cheap, then never skip them.** With Claude Code, requirements, ADRs, tests and CI gates cost hours, not weeks. There's no longer an excuse to ship without them.
+- **Build for the second client on day one.** Configuration, not forks.
+- **Let production write the proof.** Our customer story wasn't marketing written after the fact. It was drafted from the same repository that holds the requirements and decisions, then signed off by the client.
+
+None of this was a solo effort. Doug Tracy put the firm behind certification. Mikala Antol carried the partner program through every submission. Shane, Gary and others did the delivery work that made the claims true, and colleagues across the firm earned their certifications along the way. My part was the architecture, the process and the client side of the engagement, and making sure what we shipped would stand up to a finance team's scrutiny.
+
+April was about learning the platform. October is about what's running on it. Select is a milestone on that path, not the destination.
+
+So here's my question for finance and private equity leaders: which manual step in your deal process would you trust to a governed skill first, and what control would you need to see before you did?
