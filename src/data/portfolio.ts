@@ -206,7 +206,7 @@ export const leaderVoices: LeaderVoice[] = [
       '"When architecture drives outcomes and challenges demand clarity, Dave Manning is the person I trust to lead."',
     name: "Lokesh Kumar Padmanaban",
     title: "Cloud Solutions Architect",
-    company: "CentriLogic",
+    company: "Centrilogic",
     context: "direct report, 3+ years",
   },
   {
@@ -215,7 +215,7 @@ export const leaderVoices: LeaderVoice[] = [
       '"Dave brings a rare blend of deep technical expertise and pragmatic business insight. His ability to distill complexity into actionable plans is invaluable. He excels in high-stakes environments with our most strategic and demanding customers. Dave is someone who can lead with vision, execute with rigor, and elevate the people and teams around him."',
     name: "Mike Coccimiglio",
     title: "Cloud Practice Lead",
-    company: "CentriLogic",
+    company: "Centrilogic",
     context: "Oct 2025",
   },
 ];
@@ -582,24 +582,24 @@ export const proofCases: ProofCase[] = [
     headline:
       "On-demand AI coaching for the full sales org, shipped in 24 hours, alongside the Claude Enterprise deployment and governance program that made it possible.",
     summary:
-      "When the CentriLogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training. He shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in the company's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through Executive approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path, the first step toward CentriLogic's Select partner tier, building the internal AI operating model CentriLogic sells to clients.",
+      "When the Centrilogic sales team struggled to hold AI conversations with clients, Dave didn't schedule training. He shipped an AI coach by the next morning. A 4-mode Copilot Agent grounded in the company's own case study library equipped 25+ sellers to navigate AI objections, match proof points to client industries, and run pre-call briefs with coached discovery questions. In parallel, he championed Claude Enterprise through Executive approval, authored the company's AI Acceptable Use Policy, and completed the Claude Partner Network certification path, the first step toward Centrilogic's Select partner tier, building the internal AI operating model Centrilogic sells to clients.",
     impact: [
       "AI sales coach deployed to 25+ sellers in under 24 hours",
       "Claude Enterprise: pilot to 100+ seats, governed by a formal AI AUP",
-      "Internal AI adoption model mirrors the pattern CentriLogic architects for clients",
+      "Internal AI adoption model mirrors the pattern Centrilogic architects for clients",
     ],
     leadership: [
-      "Identified the sales team's AI knowledge gap and chose to build a coaching tool rather than schedule training. On-demand, rep-specific, and built from real CentriLogic proof points.",
+      "Identified the sales team's AI knowledge gap and chose to build a coaching tool rather than schedule training. On-demand, rep-specific, and built from real Centrilogic proof points.",
       "Built the Claude Enterprise business case, secured executive approval, and tied the decision to the company's commitment to operating as a frontier AI firm.",
       "Authored the company's AI Acceptable Use Policy to govern the deployment, applying the same governance pattern used in client AI COE engagements.",
-      "Completed the Claude Partner Network certification path (4 required courses plus 2 additional), then helped carry CentriLogic from certification to the Select partner tier in the Claude Partner Network Services Track (Oct 2026).",
-      "Applied the same AI operating discipline to CentriLogic's internal tools that the firm architects for external clients.",
-      "This work earned CentriLogic's Frontier Award, recognizing practical, high-impact AI adoption across the firm.",
+      "Completed the Claude Partner Network certification path (4 required courses plus 2 additional), then helped carry Centrilogic from certification to the Select partner tier in the Claude Partner Network Services Track (Oct 2026).",
+      "Applied the same AI operating discipline to Centrilogic's internal tools that the firm architects for external clients.",
+      "This work earned Centrilogic's Frontier Award, recognizing practical, high-impact AI adoption across the firm.",
     ],
     architecture: [
       "4-mode coaching framework surfaced as Copilot suggested prompts: Quick Lookup, Quiz Me, Pre-Call Coach, and Role-Play / Objection Drill",
       "Persistent per-rep fluency file, a markdown memory layer tracking each rep's progress across 18 AI topics and all 6 core objection types. Pattern carried over from a personal coaching agent Dave built for himself.",
-      "Knowledge base grounded in CentriLogic's AI Factory materials, Sales Content, and Client case study materials",
+      "Knowledge base grounded in Centrilogic's AI Factory materials, Sales Content, and Client case study materials",
       "Case study matching framework covering 6 client industry profiles with matched proof points and outcomes",
       "Built in Claude Cowork, ported to Copilot Agent Builder for org-wide deployment on the M365 surface sellers already use",
       "Claude Enterprise: grew from a pilot of 10 technical early adopters to company-wide adoption, with 100+ seats in use and growing",
@@ -607,7 +607,7 @@ export const proofCases: ProofCase[] = [
     outcomes: [
       "Sales team able to handle 6 core AI objection types (budget, readiness, ROI, Microsoft vs. Claude, differentiation, and industry fit) with coached, case-study-backed responses",
       "Reps generate structured pre-call briefs with matched case studies, discovery questions, and anticipated objections in seconds rather than hours",
-      "Monday need identified, Tuesday in use. A 24-hour deployment cycle that demonstrates the same model CentriLogic delivers for clients.",
+      "Monday need identified, Tuesday in use. A 24-hour deployment cycle that demonstrates the same model Centrilogic delivers for clients.",
       "Claude Enterprise deployed with executive approval and a formal governance policy, now adopted across most of the company (100+ seats). A governed internal platform, not shadow IT.",
       "Internal AI operating model mirrors the client pattern: identify the gap, deploy with structure, govern it, enable the team, and iterate.",
     ],
