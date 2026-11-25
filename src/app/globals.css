@@ -1813,9 +1813,10 @@ canvas#stars {
 .anim-stagger-children.anim-visible > *:nth-child(12) { transition-delay: 880ms; }
 
 /* ── AnimatedHeading word reveal ── */
+/* Block, not flex: the plain-space text nodes between .anim-word spans
+   must render (flex containers drop whitespace-only text nodes). */
 .anim-heading {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .anim-word {
