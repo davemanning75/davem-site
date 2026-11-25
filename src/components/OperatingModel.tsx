@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { operatingPhases, siteCopy } from "@/data/portfolio";
 
 type ConnectorCoord = { x1: number; y1: number; x2: number; y2: number };
@@ -11,6 +11,9 @@ const EMPTY_LAYOUT: Layout = { w: 0, h: 0, connectors: [] };
 
 export default function OperatingModel() {
   const [activePhase, setActivePhase] = useState(operatingPhases[0]);
+  // Only animate panel swaps after a user click, so the server-rendered
+  // HTML never ships the first panel at opacity 0.
+  const [hasInteracted, setHasInteracted] = useState(false);
   const { operatingModel } = siteCopy;
   const reduceMotion = useReducedMotion();
 
@@ -50,12 +53,6 @@ export default function OperatingModel() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  const signalGroups = [
-    { heading: operatingModel.executiveHeading, signals: activePhase.executiveSignals },
-    { heading: operatingModel.deliveryHeading, signals: activePhase.deliverySignals },
-    { heading: operatingModel.proofHeading, signals: activePhase.proofSignals },
-  ];
-
   return (
     <section
       id="services"
@@ -89,7 +86,10 @@ export default function OperatingModel() {
                   }}
                   type="button"
                   className={`phase-node${isActive ? " is-active" : ""}`}
-                  onClick={() => setActivePhase(phase)}
+                  onClick={() => {
+                    setHasInteracted(true);
+                    setActivePhase(phase);
+                  }}
                   role="tab"
                   aria-selected={isActive}
                   aria-controls={`phase-panel-${phase.id}`}
@@ -105,8 +105,8 @@ export default function OperatingModel() {
                 >
                   <span className="phase-step" aria-hidden="true">
                     {phase.step}
-                  </span>
-                  <span className="phase-title">{phase.title}</span>
+                  </span>{" "}
+                  <span className="phase-title">{phase.title}</span>{" "}
                   <span className="phase-summary">{phase.summary}</span>
                 </motion.button>
               );
@@ -142,45 +142,63 @@ export default function OperatingModel() {
             )}
           </div>
 
-          <div
-            className="phase-detail"
-            role="tabpanel"
-            id={`phase-panel-${activePhase.id}`}
-            aria-labelledby={`phase-tab-${activePhase.id}`}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activePhase.id}
-                initial={reduceMotion ? false : { opacity: 0, x: 8 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -8 }}
-                transition={{ duration: reduceMotion ? 0 : 0.22, ease: "easeOut" }}
-              >
-                <p className="phase-detail-kicker" aria-hidden="true">
-                  {operatingModel.detailKicker}
-                </p>
-                <h3>{activePhase.title}</h3>
-                <p>{activePhase.description}</p>
+          {/*
+            Every phase panel is rendered in the HTML so crawlers and
+            non-JS fetchers see all four phases. Inactive panels use the
+            `hidden` attribute; only the active one is shown and animated.
+          */}
+          {operatingPhases.map((phase) => {
+            const isActive = phase.id === activePhase.id;
+            const signalGroups = [
+              { heading: operatingModel.executiveHeading, signals: phase.executiveSignals },
+              { heading: operatingModel.deliveryHeading, signals: phase.deliverySignals },
+              { heading: operatingModel.proofHeading, signals: phase.proofSignals },
+            ];
 
-                <div
-                  className="phase-detail-grid"
-                  role="list"
-                  aria-label="Operating model outcomes by audience"
+            return (
+              <div
+                key={phase.id}
+                className="phase-detail"
+                role="tabpanel"
+                id={`phase-panel-${phase.id}`}
+                aria-labelledby={`phase-tab-${phase.id}`}
+                hidden={!isActive}
+              >
+                <motion.div
+                  key={isActive ? `${phase.id}-active` : phase.id}
+                  initial={hasInteracted && isActive && !reduceMotion ? { opacity: 0, x: 8 } : false}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.22, ease: "easeOut" }}
                 >
-                  {signalGroups.map((group) => (
-                    <div key={group.heading} className="phase-card" role="listitem">
-                      <h4>{group.heading}</h4>
-                      <ul className="signal-list">
-                        {group.signals.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                  <p className="phase-detail-kicker" aria-hidden="true">
+                    {operatingModel.detailKicker}
+                  </p>
+                  <h3>
+                    <span className="sr-only">{phase.step} </span>
+                    {phase.title}
+                  </h3>
+                  <p>{phase.description}</p>
+
+                  <div
+                    className="phase-detail-grid"
+                    role="list"
+                    aria-label="Operating model outcomes by audience"
+                  >
+                    {signalGroups.map((group) => (
+                      <div key={group.heading} className="phase-card" role="listitem">
+                        <h4>{group.heading}</h4>
+                        <ul className="signal-list">
+                          {group.signals.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

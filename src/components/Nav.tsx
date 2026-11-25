@@ -15,6 +15,10 @@ export default function Nav() {
   const pathname = usePathname();
   const [activeId, setActiveId] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  // The mobile drawer's links are only mounted after the menu is first
+  // opened, so the server HTML contains one copy of each nav link instead
+  // of two (desktop + drawer).
+  const [drawerMounted, setDrawerMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
@@ -103,7 +107,10 @@ export default function Nav() {
         {/* Hamburger button (mobile only) */}
         <button
           className="nav-hamburger"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => {
+            setDrawerMounted(true);
+            setMenuOpen(!menuOpen);
+          }}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
         >
@@ -119,31 +126,39 @@ export default function Nav() {
         onClick={closeMenu}
         aria-hidden="true"
       />
-      <div className={`nav-drawer${menuOpen ? " nav-drawer-open" : ""}`}>
-        {navigation.links.map((link) =>
-          link.href.startsWith("/") ? (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`nav-drawer-link${pathname === link.href ? " nav-link-active" : ""}`}
-              onClick={closeMenu}
-            >
-              {link.label}
-            </Link>
-          ) : (
-            <a
-              key={link.href}
-              href={toRootHref(link.href)}
-              className={`nav-drawer-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
-              onClick={closeMenu}
-            >
-              {link.label}
+      <div
+        className={`nav-drawer${menuOpen ? " nav-drawer-open" : ""}`}
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
+      >
+        {drawerMounted && (
+          <>
+            {navigation.links.map((link) =>
+              link.href.startsWith("/") ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`nav-drawer-link${pathname === link.href ? " nav-link-active" : ""}`}
+                  onClick={closeMenu}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={toRootHref(link.href)}
+                  className={`nav-drawer-link${activeId === link.href.replace("#", "") ? " nav-link-active" : ""}`}
+                  onClick={closeMenu}
+                >
+                  {link.label}
+                </a>
+              ),
+            )}
+            <a className="nav-cta nav-drawer-cta" href={toRootHref("#contact")} onClick={closeMenu}>
+              {navigation.ctaLabel}
             </a>
-          ),
+          </>
         )}
-        <a className="nav-cta nav-drawer-cta" href={toRootHref("#contact")} onClick={closeMenu}>
-          {navigation.ctaLabel}
-        </a>
       </div>
     </nav>
   );

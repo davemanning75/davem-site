@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { Fragment, useCallback, useRef, useState } from "react";
 
 interface AnimatedHeadingProps {
   children: string;
@@ -69,18 +69,21 @@ export default function AnimatedHeading({
       {...rest}
     >
       {words.map((word, i) => (
-        <span
-          key={`${word}-${i}`}
-          className="anim-word"
-          style={{
-            transitionDelay: `${delay + i * stagger}ms`,
-            transitionTimingFunction: EASING,
-          }}
-          aria-hidden="true"
-        >
-          {word}
-          {i < words.length - 1 ? "\u00A0" : ""}
-        </span>
+        <Fragment key={`${word}-${i}`}>
+          <span
+            className="anim-word"
+            style={{
+              transitionDelay: `${delay + i * stagger}ms`,
+              transitionTimingFunction: EASING,
+            }}
+            aria-hidden="true"
+          >
+            {word}
+          </span>
+          {/* Plain space between words (not a non-breaking space) so
+              headings read cleanly to crawlers and still wrap normally. */}
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </Tag>
   );
